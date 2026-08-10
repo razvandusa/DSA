@@ -3,9 +3,10 @@
 This repository's goal is to help you pass your coding interviews by providing a comprehensive collection of data structures and algorithms.
 
 # Data Structures
-1. [Arrays](#arrays)
+1. [Array](#array)
+2. [String](#string)
 
-## Arrays
+## Array
 1. Creating
 ```python
 a = []                                  # empty array
@@ -93,6 +94,50 @@ all(x < 0 for x in a)                   # True if all elements are negative
 9. Unpacking & swapping
 ```python
 a[i], a[j] = a[j], a[i]                 # swap elements
+```
+
+## String
+Strings are **immutable**. Every "modification" creates a new string.
+1. Creating & converting
+```python
+s = ""                                  # empty string
+s = "hello"                             # string with characters
+s = str(123)                            # convert number to string
+s = "ab" * 3                            # "ababab"
+chars = list(s)                         # ['a', 'b', 'a', 'b', 'a', 'b']
+s = " ".join(chars)                     # "a b a b a b"
+```
+
+2. Access & slicing
+```python
+s[0], s[-1]                             # first and last character
+s[i:j]                                  # substring [i, j)
+s[i:j:k]                                # substring with step k
+s[:i], s[i:]                            # prefix / suffix
+s[::-1]                                 # reversed string
+len(s)                                  # length
+s[i] = x                                # TypeError - strings are immutable
+```
+
+3. Searching
+```python
+"ab" in s                               # check if the substring is in the string
+s.find("ab")                            # first index of substring, -1 if absent
+s.rfind("ab")                           # last index of substring, -1 if absent
+s.count("ab")                           # occurrences of substring
+s.startswith("ab")                      # True if the string starts with substring
+s.endswith("ab")                        # True if the string ends with substring
+```
+
+4. Transforming
+```python
+s.lower()                               # lowercase
+s.upper()                               # uppercase
+s.strip()                               # trim whitespace from both ends
+s.strip(".,!")                          # trim any of these chars
+s.lstrip(), s.rstrip()                  # trim one side only
+s.replace("a", "b")                     # replace ALL occurrences of "a" with "b"
+s.replace("a", "b", 1)                  # replace the first occurrence of "a" with "b"
 ```
 
 # Algorithms
