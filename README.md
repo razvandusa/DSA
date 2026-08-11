@@ -150,5 +150,20 @@ ord(c)                                  # character -> UNICODE
 chr(n)                                  # UNICODE -> character 
 ```
 
+6. Splitting & joining
+```python
+s.split()                               # split on whitespace "mere pere banane" -> ['mere', 'pere', 'banane']
+s.split(',')                            # split on ","
+s.split(',', 1)                         # split at most once
+s.rsplit(',', 1)                        # split from the right
+```
+
+7. Building strings
+```python
+s += c                                  # O(n) each time - O(n^2) in a loop, AVOID
+parts = []                              # build in a list instead...
+parts.append(c)
+s = "".join(parts)
+```
 
 # Algorithms
