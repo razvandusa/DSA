@@ -141,11 +141,14 @@ s.replace("a", "b", 1)                  # replace the first occurrence of "a" wi
 ```
 
 5. Character checks & codes
+```python
 c.isalpha()                             # True if c is a letter
 c.isdigit()                             # True if c is a digit
 c.isalnum()                             # True if c is a letter or digit
 c.isupper(), c.islower()                # True if c matches the case
 ord(c)                                  # character -> UNICODE
 chr(n)                                  # UNICODE -> character 
+```
+
 
 # Algorithms
