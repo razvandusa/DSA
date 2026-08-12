@@ -5,6 +5,7 @@ This repository's goal is to help you pass your coding interviews by providing a
 # Data Structures
 1. [Array](#array)
 2. [String](#string)
+3. [Hash Map](#hash-map)
 
 ## Array
 1. Creating
@@ -165,5 +166,68 @@ parts = []                              # build in a list instead...
 parts.append(c)
 s = "".join(parts)
 ```
+
+## Hash Map
+```python
+1. Creating
+d = {}                                  # empty dict
+d = {"a": 1, "b": 2}                    # dict with key -> value pairs
+d = dict(zip(keys, vals))               # build from two lists
+d = {x: 0 for x in a}                   # comprehension
+
+from collections import defaultdict
+d = defaultdict(int)                    # missing key -> 0
+d = defaultdict(list)                   # missing key -> []
+d = defaultdict(set)                    # missing key -> set()
+
+from collections import Counter
+c = Counter("aabbc")                    # {'a': 2, 'b': 2, 'c': 1}
+```
+
+2. Access & updating
+```python
+d[k]                                    # value at key k (raises KeyError if absent)
+d.get(k)                                # value at key k, None if absent
+d.get(k, 0)                             # value at key k, 0 if absent
+d[k] = v                                # insert or overwrite
+d[k] = d.get(k, 0) + 1
+d.setdefault(k, []).append(v)           # value at key k, creates an empty list and stores it in the dictionary at ket k if absent
+d.update(d, other)                      # merge another dictionary into d (d = {'a' :1, 'b': 2}; other = {'b': 20, 'c': 3}; d.update(other) = {'a': 1, 'b': 20, 'c': 3})
+```
+
+3. Removing
+```python
+del d[k]                                # remove key (raises KeyError if absent)
+d.pop(k)                                # remove & return value (raise KeyError if absent)
+d.pop(k, None)                          # remove & return value, None if absent
+d.popitem()                             # remove & returns the last inserted key-value pair as a tuple (raises KeyError if absent)
+d.clear()                               # empty the dict
+```
+
+4.  Searching
+```python
+k in d                                  # check if the Key exists - O(1)
+v in d.values()                         # check if the Value exists - O(n)
+len(d)                                  # number of keys
+max(d, key=d.get)                       # key with the largest value
+sum(d.values())                         # sum of all values
+sorted(d)                               # dictionary sorted by keys
+sorted(d, key=d.get)                    # dictionary srted by values
+```
+
+5. Iterating
+```python
+for k in d: ...                         # keys
+for v in d.values(): ...                # values
+for k, v in d.items(): ...              # key value
+```
+
+6. Counter
+```python
+c = Counter("banana")
+c.most_common()                         # returns the items with the largest counts, ordered from most frequent to least frequent [('a', 3), ('n', 2), ('b', 1)]
+c.most_common(2)                        # returns only the top 2 items with the largest counts [('a', 3), ('n', 2)]
+```
+
 
 # Algorithms
