@@ -6,6 +6,7 @@ This repository's goal is to help you pass your coding interviews by providing a
 1. [Array](#array)
 2. [String](#string)
 3. [Hash Map](#hash-map)
+4. [Hash Set](#hash-set)
 
 ## Array
 1. Creating
@@ -168,6 +169,7 @@ s = "".join(parts)
 ```
 
 ## Hash Map
+Average **O(1)** insert, lookup and delete.
 ```python
 1. Creating
 d = {}                                  # empty dict
@@ -229,5 +231,50 @@ c.most_common()                         # returns the items with the largest cou
 c.most_common(2)                        # returns only the top 2 items with the largest counts [('a', 3), ('n', 2)]
 ```
 
+## Hash Set
+Average **O(1)** add, lookup and remove.
+1. Creating
+```python
+s = set()                               # empty set
+s = {1, 2, 3}                           # set with elements
+s = set("hello")                        # {'h', 'e', 'l', 'o'}
+s = {e for e in a if e > 0}             #comprehension
+```
+
+2. Adding & removing
+```python
+s.add(x)                                # add one element, no operation if already exists
+s.update([1, 2, 3])                     # add many elements
+s.remove(x)                             # remove (raises KeyError if absent)
+s.discard(x)                            # remove, silently ignores if absent
+s.pop()                                 # remove & return an ARBITRARY element (raises KeyError if absent)
+s.clear()                               # empty the set
+```
+
+3. Searching
+```python
+x in s                                  # O(1)
+x not in s
+len(s)                                  # number of elements
+min(s), max(s)                          # smallest / largest
+sorted(s)                               # returns a sorted LIST
+```
+
+4. Set algebra
+```python
+s1 & s2                                 # intersection - in BOTH
+s1 | s2                                 # union - in EITHER
+s1 - s2                                 # difference - in s1 but not s2
+s1 ^ s2                                 # symmetric difference - in exactly one
+s1 <= s2                                # True if s1 is a subset of s2
+s1 >= s2                                # True if s1 is a superset of s2
+s1.isdisjoint(s2)                       # True if they share nothing
+```
+
+5. Iterating
+```python
+for x in s: ...                         # arbitrary order - never rely on it
+for x in sorted(s): ...                 # sorted order
+```
 
 # Algorithms
