@@ -23,7 +23,7 @@ a = list(range(5))                      # [0, 1, 2, 3, 4]
 
 2. Access & slicing
 ```python
-a[0], a[-1]                             # first and last element
+a[0], a[-1]                             # first and last element - O(1)
 a[i:j]                                  # subarray [i, j)
 a[i:j:k]                                # subarray with step k
 a[::-1]                                 # reversed array
@@ -290,8 +290,8 @@ s = [1, 2, 3]                           # stack with elements, 3 is the TOP of t
 
 2. Push, pop & peek
 ```python
-s.append(x)                             # push onto the top
-s.pop()                                 # remove & return the top
+s.append(x)                             # push onto the top - O(1)
+s.pop()                                 # remove & return the top - O(1)
 s[-1]                                   # peek at the top, without removing
 ```
 
@@ -300,6 +300,41 @@ s[-1]                                   # peek at the top, without removing
 if not s: ...                           # empty check
 while s: ...                            # drain the stack
 len(s)                                  # current size
+```
+
+## Queue & Deque
+**FIFO** - first in, first out. Never use a list because list.pop(0) is O(n), deque is **O(1)** at both ends.
+1. Creating
+```python
+from collections import deque
+q = deque()                             # empty queue
+q = deque([1, 2, 3])                    # 1 is the FRONT, 3 is the BACK
+q = deque(maxlen=3)                     # fixed size - pusing drops the opposite end element
+```
+
+2. Adding & removing
+```python
+q.append(x)                             # add to the BACK - O(1)
+q.appendleft(x)                         # add to the FRONT - O(1)
+q.pop()                                 # remove & return the BACK - O(1)
+q.popleft()                             # remove & return the FRONT - O(1)
+q.extend([1,2,3])                       # add more elements to the back
+q.extendleft([1,2,3])                   # add more elements to the front 
+```
+
+3. Peeking & checking
+```python
+q[0]                                    # peek at the front
+q[-1]                                   # peek at the back
+if not q: ...                           # empty check
+while q: ...                            # drain the queue
+len(q)                                  # current size
+```
+
+4. Rotating
+```python
+q.rotate(1)                             # move everything right by 1
+q.rotate(-1)                            # move everything left by 1
 ```
 
 # Algorithms
