@@ -280,6 +280,28 @@ for x in s: ...                         # arbitrary order - never rely on it
 for x in sorted(s): ...                 # sorted order
 ```
 
+## Stack
+**LIFO** - last in, first out.
+1. Creating
+```python
+s = []                                  # empty stack
+s = [1, 2, 3]                           # stack with elements, 3 is the TOP of the stack
+```
+
+2. Push, pop & peek
+```python
+s.append(x)                             # push onto the top
+s.pop()                                 # remove & return the top
+s[-1]                                   # peek at the top, without removing
+```
+
+3. Checking
+```python
+if not s: ...                           # empty check
+while s: ...                            # drain the stack
+len(s)                                  # current size
+```
+
 # Algorithms
 
 ## Two Pointers Technique
