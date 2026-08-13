@@ -3,9 +3,6 @@
 This repository's goal is to help you pass your coding interviews by providing a comprehensive collection of data structures and algorithms.
 
 # Data Structures
-- [Data Structures and Algorithms in Python](#data-structures-and-algorithms-in-python)
-- [Data Structures](#data-structures)
-- [Algorithms](#algorithms)
   - [Array](#array)
   - [String](#string)
   - [Hash Map](#hash-map)
@@ -13,8 +10,6 @@ This repository's goal is to help you pass your coding interviews by providing a
   - [Stack](#stack)
   - [Queue \& Deque](#queue--deque)
   - [Matrix](#matrix)
-- [Algorithms](#algorithms-1)
-  - [Two Pointers Technique](#two-pointers-technique)
 
 # Algorithms
 1. [Two Pointers Technique](#two-pointers-technique)
