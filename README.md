@@ -7,6 +7,8 @@ This repository's goal is to help you pass your coding interviews by providing a
 2. [String](#string)
 3. [Hash Map](#hash-map)
 4. [Hash Set](#hash-set)
+5. [Stack](#stack)
+6. [Queue & Deque](#queue--deque)
 
 # Algorithms
 1. [Two Pointers Technique](#two-pointers-technique)
