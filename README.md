@@ -3,12 +3,18 @@
 This repository's goal is to help you pass your coding interviews by providing a comprehensive collection of data structures and algorithms.
 
 # Data Structures
-1. [Array](#array)
-2. [String](#string)
-3. [Hash Map](#hash-map)
-4. [Hash Set](#hash-set)
-5. [Stack](#stack)
-6. [Queue & Deque](#queue--deque)
+- [Data Structures and Algorithms in Python](#data-structures-and-algorithms-in-python)
+- [Data Structures](#data-structures)
+- [Algorithms](#algorithms)
+  - [Array](#array)
+  - [String](#string)
+  - [Hash Map](#hash-map)
+  - [Hash Set](#hash-set)
+  - [Stack](#stack)
+  - [Queue \& Deque](#queue--deque)
+  - [Matrix](#matrix)
+- [Algorithms](#algorithms-1)
+  - [Two Pointers Technique](#two-pointers-technique)
 
 # Algorithms
 1. [Two Pointers Technique](#two-pointers-technique)
@@ -338,6 +344,23 @@ len(q)                                  # current size
 q.rotate(1)                             # move everything right by 1
 q.rotate(-1)                            # move everything left by 1
 ```
+
+## Matrix
+1. Creating
+```python
+grid = [[0] * cols for _ in range(rows)]  # Works because in the for, the expression `[0] * 10` is evaluted once per iteration, creating a new list each time
+```
+![](images/matrix_good_code.png)
+![](images/matrix.png)
+```python
+grid = [[0] * 10] * 3                   # First, `[0] * 10` creates a first  list with 10 references to `0`.
+                                        # This is safe because integers are immutable.
+                                        #
+                                        # Then, the outer `* 3` creates a second list with 3 references to the same first list. The first list is mutable, so modifying an element in it will be visible "through every list" referenced by the second list.
+```
+![](images/matrix_bad_code.png)
+![](images/matrix_first_list.png)
+![](images/matrix_second_list.png)
 
 # Algorithms
 
