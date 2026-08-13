@@ -8,6 +8,9 @@ This repository's goal is to help you pass your coding interviews by providing a
 3. [Hash Map](#hash-map)
 4. [Hash Set](#hash-set)
 
+# Algorithms
+1. []
+
 ## Array
 1. Creating
 ```python
@@ -278,3 +281,16 @@ for x in sorted(s): ...                 # sorted order
 ```
 
 # Algorithms
+
+##Two Pointers Technique
+Two indexes walking a sequence, replacing a nested loop. Turns O(n^2) -> O(n), but needs the input **sorted**.
+```python
+l, r = 0, len(a) - 1                    # start at both ends
+while l < r:                            # stop when they meet
+    if a[l] + a[r] == target:           
+        return True
+    elif a[l] + a[r] < target:          # too small -> need a bigger number
+        l += 1
+    else:                               # too big -> need a smaller number
+        r -= 1
+```
