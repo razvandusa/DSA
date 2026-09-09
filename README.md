@@ -10,6 +10,7 @@ This repository's goal is to help you pass your coding interviews by providing a
   - [Stack](#stack)
   - [Queue \& Deque](#queue--deque)
   - [Matrix](#matrix)
+  - [Heap / Priority Queue](#heap--priority-queue)
 
 # Algorithms
 1. [Two Pointers Technique](#two-pointers-technique)
@@ -202,6 +203,7 @@ d[k] = d.get(k, 0) + 1
 d.setdefault(k, []).append(v)           # value at key k, creates an empty list and stores it in the dictionary at ket k if absent
 d.update(d, other)                      # merge another dictionary into d (d = {'a' :1, 'b': 2}; other = {'b': 20, 'c': 3}; d.update(other) = {'a': 1, 'b': 20, 'c': 3})
 ```
+![](images/hashmap.png)
 
 3. Removing
 ```python
@@ -324,6 +326,7 @@ q.popleft()                             # remove & return the FRONT - O(1)
 q.extend([1,2,3])                       # add more elements to the back
 q.extendleft([1,2,3])                   # add more elements to the front 
 ```
+![](images/deque.png)
 
 3. Peeking & checking
 ```python
@@ -339,6 +342,57 @@ len(q)                                  # current size
 q.rotate(1)                             # move everything right by 1
 q.rotate(-1)                            # move everything left by 1
 ```
+
+## Linked List
+Python has no built-in linked list - you define the node.
+1. Creating
+```python
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+```
+
+2. Building
+```python
+node1 = Node(7)
+node2 = Node(11)
+node3 = Node(3)
+node4 = Node(2)
+node5 = Node(9)
+
+node1.next = node2
+node2.next = node3
+node3.next = node4
+node4.next = node5
+```
+
+3. Traversing
+```python
+cur = head
+while cur:                              # stops when cur is None (past the last node)
+    cur = cur.next
+while cur and cur.next:                 # stops on ON last node
+    cur = cur.next
+```
+
+4. Inserting
+```python
+node.next = prev.next                   # link the new node to the rest            
+prev.next = node                        # then link prev to it
+```
+
+5. Deleting
+```python
+prev.next = prev.next.next              # unlink the node AFTER prev - O(1)
+```
+
+6. Size
+```python
+n, cur = 0, head
+while cur:
+    n += 1
+    cur = cur.next
 
 ## Matrix
 1. Creating
