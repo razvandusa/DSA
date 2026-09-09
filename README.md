@@ -393,12 +393,13 @@ n, cur = 0, head
 while cur:
     n += 1
     cur = cur.next
+```
 
 ## Matrix
 1. Creating
 ```python
 grid = [[0] * cols for _ in range(rows)]  # Works because in the for, the expression `[0] * 10` is evaluted once per iteration, creating a new list each time
-```
+
 ![](images/matrix_good_code.png)
 ![](images/matrix.png)
 ```python
