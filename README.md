@@ -411,6 +411,52 @@ grid = [[0] * 10] * 3                   # First, `[0] * 10` creates a first  lis
 ![](images/matrix_first_list.png)
 ![](images/matrix_second_list.png)
 
+## Heap / Priority Queue
+Min-heaps are binary trees, implemented using lists for which `heap[k] <= heap[2*k+1]` and `heap[k] <= heap[2*k+2]` for all k for which the compared elements exist. Elements are counted from zero. The interesting property of a min-heap is that its smallest element is always the root, `heap[0]`.  
+Max-heaps satisfy the reverse invariant. `heap.sort(reverse=True)` maintains the max-heap invariant.  
+Python's heap is min-only.
+
+![](images/heap.png)
+1. Creating
+```python
+import heapq
+# Min-heap
+h = []                                  # a plain list IS the heap
+a = [5, 1, 8, 3, 9, 2]
+heapq.heapify(a)                        # turns the array a into a valid min-heap, in place O(n) (a = [5, 1, 8, 3, 9, 2] -> [1, 3, 2, 5, 9. 8])
+
+# Max-heap
+h = []
+a = [5, 1, 8, 3, 9, 2]
+h = [-x for x in a]
+heapq.heapify(h)
+```
+
+2. Push, pop & peek
+```python
+heapq.heappush(h, x)                    # insert - O(log n)
+heapq.heappop(h)                        # remove & return the SMALLEST - O(log n)
+h[0]                                    # peek at the smallest - O(1)
+```
+
+3. Checking
+```python
+if not h:...                            # empty check
+while h: ...                            # drain the heap
+len(h)                                  # current size
+```
+
+4. Max-heap - Python doesn't have one
+```python
+heapq.heappush(h, -x)                   # push the negative
+-heapq.heappop(h)                       # negate again on the way out
+```
+
+5. Heap of tuples - order by a custom key
+```python
+heapq.heappush(h, (dist, node))         # orders by dist, then by node
+dist, node = heapq.heappop(h)           # unpack when popping
+```
 # Algorithms
 
 ## Two Pointers Technique
