@@ -458,6 +458,40 @@ heapq.heappush(h, -x)                   # push the negative
 heapq.heappush(h, (dist, node))         # orders by dist, then by node
 dist, node = heapq.heappop(h)           # unpack when popping
 ```
+
+## Binary Tree
+Python has no built-in binary tree - you define the node.
+1. The node
+```python
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val                  # the payload
+        self.left = left                # left child, None if absent
+        self.right = right              # right child, None if absent
+```
+
+2. Building
+```python
+# Step by step
+root = TreeNode(1)
+root.left = TreeNode(2)
+root.right = TreeNode(3)
+
+# All at once
+root = TreeNode(1, TreeNode(2), TreeNode(3))
+```
+
+3. Height & size
+```python
+def height(node):
+    if not node: return 0
+    return 1 + max(height(node.left), height(node.right))
+
+def count(node):
+    if not node: return 0
+    return 1 + count(node.left) + count(node.right)
+```
+
 # Algorithms
 
 ## Two Pointers Technique
