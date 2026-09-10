@@ -16,8 +16,8 @@ This repository's goal is to help you pass your coding interviews by providing a
 
 **Tree data structures**
 - [Binary Tree](#binary-tree)
+- [Binary Search Tree](#binary-search-tree)
 - [Heap / Priority Queue](#heap--priority-queue)
-- Binary Search Tree *(not written yet)*
 
 **Graph, advanced and complex data structures** *(not written yet)*
 
@@ -457,9 +457,123 @@ for x in sorted(s): ...                 # sorted order
 
 ---
 
+### Binary Tree
+
+Python has no built-in binary tree - you define the node.
+
+1. The node
+```python
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val                  # the payload
+        self.left = left                # left child, None if absent
+        self.right = right              # right child, None if absent
+```
+
+2. Building
+```python
+# Step by step
+root = TreeNode(1)
+root.left = TreeNode(2)
+root.right = TreeNode(3)
+
+# All at once
+root = TreeNode(1, TreeNode(2), TreeNode(3))
+```
+
+3. Height & size
+```python
+def height(node):
+    if not node: return 0
+    return 1 + max(height(node.left), height(node.right))
+
+def count(node):
+    if not node: return 0
+    return 1 + count(node.left) + count(node.right)
+```
+
+---
+
+### Binary Search Tree
+
+Same as a binary tree, plus one rule that makes it searchable: 
+```python
+        8            For EVERY node:
+       / \             everything in the LEFT subtree  < node.val
+      3   10           everything in the RIGHT subtree > node.val
+     / \    \
+    1   6    14
+```
+
+Every operation walks a single root-to-leaf path, so everything is O(h) when balanced, O(n) when degenerate. Python has no built-in BST.
+
+1. Creating
+```python
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val                  # the payload
+        self.left = left                # left child, None if absent
+        self.right = right              # right child, None if absent
+```
+
+2. Search - O(h)
+```python
+def search(node, target):
+    while node:
+        if target == node.val:
+            return node
+        node = node.left if target < node.val else node.right
+    return None
+```
+
+3. Insert - O(h)
+```python
+def insert(node, val):
+    if not node: return TreeNode(val)   # empty spot
+    if val < node.val:
+        node.left = insert(node.left, val)
+    else:
+        node.right = insert(node.right, val)
+    return None                         # not found
+```
+
+4. Delete - three cases
+```python
+def delete(node, val):
+    if not node: return None
+    if val < node.val:
+        node.left = delete(node.left, val)
+    elif val > node.val:
+        node.right = delete(node.right, val)
+    else:
+        # 0 or 1 child
+        if not node.left: return node.right
+        if not node.right: return node.left
+        # 2 children: replace with the smallest value on the right
+        succ = node.right
+        while succ.left:
+            succ = succ.left
+        node.val = succ.val # copy the successor's value up
+        node.right = delete(node.right, succ.val) # delete the duplicate
+    return node
+```
+```python
+# deleting 50 - the 2 children case
+root = delete(root, 50)
+```
+```
+      50                      60                       60
+     /  \                    /  \      delete         /  \
+    30    70    copy        30    70     duplicate   30    70
+        /  \    ------>          / \     ------>            \
+      60    80                 60   80                      80
+```
+
+---
+
 ### Heap / Priority Queue
 
-Min-heaps are binary trees, implemented using lists for which `heap[k] <= heap[2*k+1]` and `heap[k] <= heap[2*k+2]` for all k for which the compared elements exist. Elements are counted from zero, so the smallest element is always the root, `heap[0]`.
+Min-heaps are complete binary trees, implemented using lists for which `heap[k] <= heap[2*k+1]` and `heap[k] <= heap[2*k+2]` for all k for which the compared elements exist. Elements are counted from zero, so the smallest element is always the root, `heap[0]`.
 
 Max-heaps satisfy the reverse invariant - `heap.sort(reverse=True)` maintains it. Python's heap is **min-only**.
 
@@ -504,43 +618,6 @@ heapq.heappush(h, -x)                   # push the negative
 ```python
 heapq.heappush(h, (dist, node))         # orders by dist, then by node
 dist, node = heapq.heappop(h)           # unpack when popping
-```
-
----
-
-### Binary Tree
-
-Python has no built-in binary tree - you define the node.
-
-1. The node
-```python
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val                  # the payload
-        self.left = left                # left child, None if absent
-        self.right = right              # right child, None if absent
-```
-
-2. Building
-```python
-# Step by step
-root = TreeNode(1)
-root.left = TreeNode(2)
-root.right = TreeNode(3)
-
-# All at once
-root = TreeNode(1, TreeNode(2), TreeNode(3))
-```
-
-3. Height & size
-```python
-def height(node):
-    if not node: return 0
-    return 1 + max(height(node.left), height(node.right))
-
-def count(node):
-    if not node: return 0
-    return 1 + count(node.left) + count(node.right)
 ```
 
 ## Algorithms
