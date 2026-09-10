@@ -3,14 +3,26 @@
 This repository's goal is to help you pass your coding interviews by providing a comprehensive collection of data structures and algorithms.
 
 # Data Structures
+## Basic Data Structures
   - [Array](#array)
+  - [Linked List](#linked-list)
   - [String](#string)
-  - [Hash Map](#hash-map)
-  - [Hash Set](#hash-set)
   - [Stack](#stack)
   - [Queue \& Deque](#queue--deque)
+  - [Hash Map](#hash-map)
+  - [Hash Set](#hash-set)
   - [Matrix](#matrix)
+
+## Tree Data Structures
+  - [Binary Tree](#binary-tree)
+  - [Binary Search Tree](#binary-search-tree)
   - [Heap / Priority Queue](#heap--priority-queue)
+
+## Graph Data Structures
+
+## Advanced Data Structures
+
+## Complex Data Structures
 
 # Algorithms
 1. [Two Pointers Technique](#two-pointers-technique)
@@ -105,6 +117,58 @@ all(x < 0 for x in a)                   # True if all elements are negative
 a[i], a[j] = a[j], a[i]                 # swap elements
 ```
 
+## Linked List
+Python has no built-in linked list - you define the node.
+1. Creating
+```python
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+```
+
+2. Building
+```python
+node1 = Node(7)
+node2 = Node(11)
+node3 = Node(3)
+node4 = Node(2)
+node5 = Node(9)
+
+node1.next = node2
+node2.next = node3
+node3.next = node4
+node4.next = node5
+```
+
+3. Traversing
+```python
+cur = head
+while cur:                              # stops when cur is None (past the last node)
+    cur = cur.next
+while cur and cur.next:                 # stops on ON last node
+    cur = cur.next
+```
+
+4. Inserting
+```python
+node.next = prev.next                   # link the new node to the rest            
+prev.next = node                        # then link prev to it
+```
+
+5. Deleting
+```python
+prev.next = prev.next.next              # unlink the node AFTER prev - O(1)
+```
+
+6. Size
+```python
+n, cur = 0, head
+while cur:
+    n += 1
+    cur = cur.next
+```
+
 ## String
 Strings are **immutable**. Every "modification" creates a new string.
 1. Creating & converting
@@ -174,6 +238,81 @@ parts = []                              # build in a list instead...
 parts.append(c)
 s = "".join(parts)
 ```
+
+## Stack
+**LIFO** - last in, first out.
+1. Creating
+```python
+s = []                                  # empty stack
+s = [1, 2, 3]                           # stack with elements, 3 is the TOP of the stack
+```
+
+2. Push, pop & peek
+```python
+s.append(x)                             # push onto the top - O(1)
+s.pop()                                 # remove & return the top - O(1)
+s[-1]                                   # peek at the top, without removing
+```
+
+3. Checking
+```python
+if not s: ...                           # empty check
+while s: ...                            # drain the stack
+len(s)                                  # current size
+```
+
+## Queue & Deque
+**FIFO** - first in, first out. Never use a list because list.pop(0) is O(n), deque is **O(1)** at both ends.
+1. Creating
+```python
+from collections import deque
+q = deque()                             # empty queue
+q = deque([1, 2, 3])                    # 1 is the FRONT, 3 is the BACK
+q = deque(maxlen=3)                     # fixed size - pusing drops the opposite end element
+```
+
+2. Adding & removing
+```python
+q.append(x)                             # add to the BACK - O(1)
+q.appendleft(x)                         # add to the FRONT - O(1)
+q.pop()                                 # remove & return the BACK - O(1)
+q.popleft()                             # remove & return the FRONT - O(1)
+q.extend([1,2,3])                       # add more elements to the back
+q.extendleft([1,2,3])                   # add more elements to the front 
+```
+![](images/deque.png)
+
+3. Peeking & checking
+```python
+q[0]                                    # peek at the front
+q[-1]                                   # peek at the back
+if not q: ...                           # empty check
+while q: ...                            # drain the queue
+len(q)                                  # current size
+```
+
+4. Rotating
+```python
+q.rotate(1)                             # move everything right by 1
+q.rotate(-1)                            # move everything left by 1
+```
+
+## Matrix
+1. Creating
+```python
+grid = [[0] * cols for _ in range(rows)]  # Works because in the for, the expression `[0] * 10` is evaluted once per iteration, creating a new list each time
+
+![](images/matrix_good_code.png)
+![](images/matrix.png)
+```python
+grid = [[0] * 10] * 3                   # First, `[0] * 10` creates a first  list with 10 references to `0`.
+                                        # This is safe because integers are immutable.
+                                        #
+                                        # Then, the outer `* 3` creates a second list with 3 references to the same first list. The first list is mutable, so modifying an element in it will be visible "through every list" referenced by the second list.
+```
+![](images/matrix_bad_code.png)
+![](images/matrix_first_list.png)
+![](images/matrix_second_list.png)
 
 ## Hash Map
 Average **O(1)** insert, lookup and delete.
@@ -284,133 +423,6 @@ s1.isdisjoint(s2)                       # True if they share nothing
 for x in s: ...                         # arbitrary order - never rely on it
 for x in sorted(s): ...                 # sorted order
 ```
-
-## Stack
-**LIFO** - last in, first out.
-1. Creating
-```python
-s = []                                  # empty stack
-s = [1, 2, 3]                           # stack with elements, 3 is the TOP of the stack
-```
-
-2. Push, pop & peek
-```python
-s.append(x)                             # push onto the top - O(1)
-s.pop()                                 # remove & return the top - O(1)
-s[-1]                                   # peek at the top, without removing
-```
-
-3. Checking
-```python
-if not s: ...                           # empty check
-while s: ...                            # drain the stack
-len(s)                                  # current size
-```
-
-## Queue & Deque
-**FIFO** - first in, first out. Never use a list because list.pop(0) is O(n), deque is **O(1)** at both ends.
-1. Creating
-```python
-from collections import deque
-q = deque()                             # empty queue
-q = deque([1, 2, 3])                    # 1 is the FRONT, 3 is the BACK
-q = deque(maxlen=3)                     # fixed size - pusing drops the opposite end element
-```
-
-2. Adding & removing
-```python
-q.append(x)                             # add to the BACK - O(1)
-q.appendleft(x)                         # add to the FRONT - O(1)
-q.pop()                                 # remove & return the BACK - O(1)
-q.popleft()                             # remove & return the FRONT - O(1)
-q.extend([1,2,3])                       # add more elements to the back
-q.extendleft([1,2,3])                   # add more elements to the front 
-```
-![](images/deque.png)
-
-3. Peeking & checking
-```python
-q[0]                                    # peek at the front
-q[-1]                                   # peek at the back
-if not q: ...                           # empty check
-while q: ...                            # drain the queue
-len(q)                                  # current size
-```
-
-4. Rotating
-```python
-q.rotate(1)                             # move everything right by 1
-q.rotate(-1)                            # move everything left by 1
-```
-
-## Linked List
-Python has no built-in linked list - you define the node.
-1. Creating
-```python
-class Node:
-    def __init__(self, data):
-        self.data = data
-        self.next = None
-```
-
-2. Building
-```python
-node1 = Node(7)
-node2 = Node(11)
-node3 = Node(3)
-node4 = Node(2)
-node5 = Node(9)
-
-node1.next = node2
-node2.next = node3
-node3.next = node4
-node4.next = node5
-```
-
-3. Traversing
-```python
-cur = head
-while cur:                              # stops when cur is None (past the last node)
-    cur = cur.next
-while cur and cur.next:                 # stops on ON last node
-    cur = cur.next
-```
-
-4. Inserting
-```python
-node.next = prev.next                   # link the new node to the rest            
-prev.next = node                        # then link prev to it
-```
-
-5. Deleting
-```python
-prev.next = prev.next.next              # unlink the node AFTER prev - O(1)
-```
-
-6. Size
-```python
-n, cur = 0, head
-while cur:
-    n += 1
-    cur = cur.next
-```
-
-## Matrix
-1. Creating
-```python
-grid = [[0] * cols for _ in range(rows)]  # Works because in the for, the expression `[0] * 10` is evaluted once per iteration, creating a new list each time
-
-![](images/matrix_good_code.png)
-![](images/matrix.png)
-```python
-grid = [[0] * 10] * 3                   # First, `[0] * 10` creates a first  list with 10 references to `0`.
-                                        # This is safe because integers are immutable.
-                                        #
-                                        # Then, the outer `* 3` creates a second list with 3 references to the same first list. The first list is mutable, so modifying an element in it will be visible "through every list" referenced by the second list.
-```
-![](images/matrix_bad_code.png)
-![](images/matrix_first_list.png)
-![](images/matrix_second_list.png)
 
 ## Heap / Priority Queue
 Min-heaps are binary trees, implemented using lists for which `heap[k] <= heap[2*k+1]` and `heap[k] <= heap[2*k+2]` for all k for which the compared elements exist. Elements are counted from zero. The interesting property of a min-heap is that its smallest element is always the root, `heap[0]`.  
