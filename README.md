@@ -2,32 +2,34 @@
 
 This repository's goal is to help you pass your coding interviews by providing a comprehensive collection of data structures and algorithms.
 
-# Data Structures
-## Basic Data Structures
-  - [Array](#array)
-  - [Linked List](#linked-list)
-  - [String](#string)
-  - [Stack](#stack)
-  - [Queue \& Deque](#queue--deque)
-  - [Hash Map](#hash-map)
-  - [Hash Set](#hash-set)
-  - [Matrix](#matrix)
+## Contents
 
-## Tree Data Structures
-  - [Binary Tree](#binary-tree)
-  - [Binary Search Tree](#binary-search-tree)
-  - [Heap / Priority Queue](#heap--priority-queue)
+**Basic data structures**
+- [Array](#array)
+- [Linked List](#linked-list)
+- [String](#string)
+- [Stack](#stack)
+- [Queue & Deque](#queue--deque)
+- [Hash Map](#hash-map)
+- [Hash Set](#hash-set)
+- [Matrix](#matrix)
 
-## Graph Data Structures
+**Tree data structures**
+- [Binary Tree](#binary-tree)
+- [Heap / Priority Queue](#heap--priority-queue)
+- Binary Search Tree *(not written yet)*
 
-## Advanced Data Structures
+**Graph, advanced and complex data structures** *(not written yet)*
 
-## Complex Data Structures
+**Algorithms**
+- [Two Pointers Technique](#two-pointers-technique)
 
-# Algorithms
-1. [Two Pointers Technique](#two-pointers-technique)
+## Data Structures
 
-## Array
+---
+
+### Array
+
 1. Creating
 ```python
 a = []                                  # empty array
@@ -117,8 +119,12 @@ all(x < 0 for x in a)                   # True if all elements are negative
 a[i], a[j] = a[j], a[i]                 # swap elements
 ```
 
-## Linked List
+---
+
+### Linked List
+
 Python has no built-in linked list - you define the node.
+
 1. Creating
 ```python
 class Node:
@@ -146,13 +152,13 @@ node4.next = node5
 cur = head
 while cur:                              # stops when cur is None (past the last node)
     cur = cur.next
-while cur and cur.next:                 # stops on ON last node
+while cur and cur.next:                 # stops ON the last node
     cur = cur.next
 ```
 
 4. Inserting
 ```python
-node.next = prev.next                   # link the new node to the rest            
+node.next = prev.next                   # link the new node to the rest
 prev.next = node                        # then link prev to it
 ```
 
@@ -169,8 +175,12 @@ while cur:
     cur = cur.next
 ```
 
-## String
+---
+
+### String
+
 Strings are **immutable**. Every "modification" creates a new string.
+
 1. Creating & converting
 ```python
 s = ""                                  # empty string
@@ -220,7 +230,7 @@ c.isdigit()                             # True if c is a digit
 c.isalnum()                             # True if c is a letter or digit
 c.isupper(), c.islower()                # True if c matches the case
 ord(c)                                  # character -> UNICODE
-chr(n)                                  # UNICODE -> character 
+chr(n)                                  # UNICODE -> character
 ```
 
 6. Splitting
@@ -239,8 +249,12 @@ parts.append(c)
 s = "".join(parts)
 ```
 
-## Stack
+---
+
+### Stack
+
 **LIFO** - last in, first out.
+
 1. Creating
 ```python
 s = []                                  # empty stack
@@ -261,14 +275,18 @@ while s: ...                            # drain the stack
 len(s)                                  # current size
 ```
 
-## Queue & Deque
-**FIFO** - first in, first out. Never use a list because list.pop(0) is O(n), deque is **O(1)** at both ends.
+---
+
+### Queue & Deque
+
+**FIFO** - first in, first out. Never use a list because `list.pop(0)` is O(n), `deque` is **O(1)** at both ends.
+
 1. Creating
 ```python
 from collections import deque
 q = deque()                             # empty queue
 q = deque([1, 2, 3])                    # 1 is the FRONT, 3 is the BACK
-q = deque(maxlen=3)                     # fixed size - pusing drops the opposite end element
+q = deque(maxlen=3)                     # fixed size - pushing drops the opposite end element
 ```
 
 2. Adding & removing
@@ -278,7 +296,7 @@ q.appendleft(x)                         # add to the FRONT - O(1)
 q.pop()                                 # remove & return the BACK - O(1)
 q.popleft()                             # remove & return the FRONT - O(1)
 q.extend([1,2,3])                       # add more elements to the back
-q.extendleft([1,2,3])                   # add more elements to the front 
+q.extendleft([1,2,3])                   # add more elements to the front
 ```
 ![](images/deque.png)
 
@@ -297,15 +315,20 @@ q.rotate(1)                             # move everything right by 1
 q.rotate(-1)                            # move everything left by 1
 ```
 
-## Matrix
+---
+
+### Matrix
+
 1. Creating
 ```python
-grid = [[0] * cols for _ in range(rows)]  # Works because in the for, the expression `[0] * 10` is evaluted once per iteration, creating a new list each time
-
+grid = [[0] * cols for _ in range(rows)]  # works because the expression `[0] * cols` is evaluated once per iteration, creating a new list each time
+```
 ![](images/matrix_good_code.png)
 ![](images/matrix.png)
+
+2. The `[[0] * cols] * rows` trap
 ```python
-grid = [[0] * 10] * 3                   # First, `[0] * 10` creates a first  list with 10 references to `0`.
+grid = [[0] * 10] * 3                   # First, `[0] * 10` creates a first list with 10 references to `0`.
                                         # This is safe because integers are immutable.
                                         #
                                         # Then, the outer `* 3` creates a second list with 3 references to the same first list. The first list is mutable, so modifying an element in it will be visible "through every list" referenced by the second list.
@@ -314,10 +337,14 @@ grid = [[0] * 10] * 3                   # First, `[0] * 10` creates a first  lis
 ![](images/matrix_first_list.png)
 ![](images/matrix_second_list.png)
 
-## Hash Map
+---
+
+### Hash Map
+
 Average **O(1)** insert, lookup and delete.
-```python
+
 1. Creating
+```python
 d = {}                                  # empty dict
 d = {"a": 1, "b": 2}                    # dict with key -> value pairs
 d = dict(zip(keys, vals))               # build from two lists
@@ -339,21 +366,21 @@ d.get(k)                                # value at key k, None if absent
 d.get(k, 0)                             # value at key k, 0 if absent
 d[k] = v                                # insert or overwrite
 d[k] = d.get(k, 0) + 1
-d.setdefault(k, []).append(v)           # value at key k, creates an empty list and stores it in the dictionary at ket k if absent
-d.update(d, other)                      # merge another dictionary into d (d = {'a' :1, 'b': 2}; other = {'b': 20, 'c': 3}; d.update(other) = {'a': 1, 'b': 20, 'c': 3})
+d.setdefault(k, []).append(v)           # value at key k, creates an empty list and stores it in the dictionary at key k if absent
+d.update(other)                         # merge another dictionary into d (d = {'a': 1, 'b': 2}; other = {'b': 20, 'c': 3}; d.update(other) -> {'a': 1, 'b': 20, 'c': 3})
 ```
 ![](images/hashmap.png)
 
 3. Removing
 ```python
 del d[k]                                # remove key (raises KeyError if absent)
-d.pop(k)                                # remove & return value (raise KeyError if absent)
+d.pop(k)                                # remove & return value (raises KeyError if absent)
 d.pop(k, None)                          # remove & return value, None if absent
-d.popitem()                             # remove & returns the last inserted key-value pair as a tuple (raises KeyError if absent)
+d.popitem()                             # remove & return the last inserted key-value pair as a tuple (raises KeyError if absent)
 d.clear()                               # empty the dict
 ```
 
-4.  Searching
+4. Searching
 ```python
 k in d                                  # check if the Key exists - O(1)
 v in d.values()                         # check if the Value exists - O(n)
@@ -361,7 +388,7 @@ len(d)                                  # number of keys
 max(d, key=d.get)                       # key with the largest value
 sum(d.values())                         # sum of all values
 sorted(d)                               # dictionary sorted by keys
-sorted(d, key=d.get)                    # dictionary srted by values
+sorted(d, key=d.get)                    # dictionary sorted by values
 ```
 
 5. Iterating
@@ -378,14 +405,18 @@ c.most_common()                         # returns the items with the largest cou
 c.most_common(2)                        # returns only the top 2 items with the largest counts [('a', 3), ('n', 2)]
 ```
 
-## Hash Set
+---
+
+### Hash Set
+
 Average **O(1)** add, lookup and remove.
+
 1. Creating
 ```python
 s = set()                               # empty set
 s = {1, 2, 3}                           # set with elements
 s = set("hello")                        # {'h', 'e', 'l', 'o'}
-s = {e for e in a if e > 0}             #comprehension
+s = {e for e in a if e > 0}             # comprehension
 ```
 
 2. Adding & removing
@@ -424,19 +455,23 @@ for x in s: ...                         # arbitrary order - never rely on it
 for x in sorted(s): ...                 # sorted order
 ```
 
-## Heap / Priority Queue
-Min-heaps are binary trees, implemented using lists for which `heap[k] <= heap[2*k+1]` and `heap[k] <= heap[2*k+2]` for all k for which the compared elements exist. Elements are counted from zero. The interesting property of a min-heap is that its smallest element is always the root, `heap[0]`.  
-Max-heaps satisfy the reverse invariant. `heap.sort(reverse=True)` maintains the max-heap invariant.  
-Python's heap is min-only.
+---
+
+### Heap / Priority Queue
+
+Min-heaps are binary trees, implemented using lists for which `heap[k] <= heap[2*k+1]` and `heap[k] <= heap[2*k+2]` for all k for which the compared elements exist. Elements are counted from zero, so the smallest element is always the root, `heap[0]`.
+
+Max-heaps satisfy the reverse invariant - `heap.sort(reverse=True)` maintains it. Python's heap is **min-only**.
 
 ![](images/heap.png)
+
 1. Creating
 ```python
 import heapq
 # Min-heap
 h = []                                  # a plain list IS the heap
 a = [5, 1, 8, 3, 9, 2]
-heapq.heapify(a)                        # turns the array a into a valid min-heap, in place O(n) (a = [5, 1, 8, 3, 9, 2] -> [1, 3, 2, 5, 9. 8])
+heapq.heapify(a)                        # turns the array a into a valid min-heap, in place O(n) ([5, 1, 8, 3, 9, 2] -> [1, 3, 2, 5, 9, 8])
 
 # Max-heap
 h = []
@@ -454,7 +489,7 @@ h[0]                                    # peek at the smallest - O(1)
 
 3. Checking
 ```python
-if not h:...                            # empty check
+if not h: ...                           # empty check
 while h: ...                            # drain the heap
 len(h)                                  # current size
 ```
@@ -471,8 +506,12 @@ heapq.heappush(h, (dist, node))         # orders by dist, then by node
 dist, node = heapq.heappop(h)           # unpack when popping
 ```
 
-## Binary Tree
+---
+
+### Binary Tree
+
 Python has no built-in binary tree - you define the node.
+
 1. The node
 ```python
 class TreeNode:
@@ -504,14 +543,18 @@ def count(node):
     return 1 + count(node.left) + count(node.right)
 ```
 
-# Algorithms
+## Algorithms
 
-## Two Pointers Technique
+---
+
+### Two Pointers Technique
+
 Two indexes walking a sequence, replacing a nested loop. Turns O(n^2) -> O(n), but needs the input **sorted**.
+
 ```python
 l, r = 0, len(a) - 1                    # start at both ends
 while l < r:                            # stop when they meet
-    if a[l] + a[r] == target:           
+    if a[l] + a[r] == target:
         return True
     elif a[l] + a[r] < target:          # too small -> need a bigger number
         l += 1
