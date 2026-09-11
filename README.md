@@ -22,6 +22,7 @@ This repository's goal is to help you pass your coding interviews by providing a
 **Graph**
 
 **Advanced Data Structure**
+- [Trie](#trie)
 
 **Complex Data Structure**
 
