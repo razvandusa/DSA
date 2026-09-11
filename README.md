@@ -19,7 +19,11 @@ This repository's goal is to help you pass your coding interviews by providing a
 - [Binary Search Tree](#binary-search-tree)
 - [Heap / Priority Queue](#heap--priority-queue)
 
-**Graph, advanced and complex data structures** *(not written yet)*
+**Graph**
+
+**Advanced Data Structure**
+
+**Complex Data Structure**
 
 **Algorithms**
 - [Two Pointers Technique](#two-pointers-technique)
@@ -642,6 +646,60 @@ heapq.heappush(h, (dist, node))         # orders by dist, then by node
 dist, node = heapq.heappop(h)           # unpack when popping
 ```
 
+---
+
+### Trie
+
+A trie consists of nodes connected by edges. Each node repesents a character or a part of a string. The root node acts as a starting point and does not store any character.
+
+![](images/trie.png)
+
+1. Creating
+```python
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.is_word = False
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+```
+
+2. Insert - O(h)
+```python
+def insert(self, word):
+    node = self.root
+    for c in word:
+        if c not in node.children:      # no branch for this char yet
+            node.children[c] = TrieNode()
+        node = node.children[c]
+    node.is_word = True                 # mark where the word ENDS
+```
+
+3. Walk
+```python
+def walk(self, prefix):
+    node = self.root
+    for c in prefix:
+        if c not in node.children:
+            return None                 # prefix isn't in the trie at all
+        node = node.children[c]
+    return node
+```
+
+4. Search & startsWith
+```python
+def search(self, word):
+    node = self.walk(word)
+    # the path must exist AND be marked as a word ending
+    return node is not None and node.is_word
+
+def startswith(self, prefix)
+    # the path existing is enough
+    return self.walk(prefix) is not None
+```
+s
 ## Algorithms
 
 ---
