@@ -30,6 +30,10 @@ This repository's goal is to help you pass your coding interviews by providing a
 
 ### Array
 
+Python does not have a built-in array type like other languages, similar functionality can be achieved using lists. Unlike arrays, lists can store mixed data types.
+
+![](images/array.png)
+
 1. Creating
 ```python
 a = []                                  # empty array
@@ -124,6 +128,8 @@ a[i], a[j] = a[j], a[i]                 # swap elements
 ### Linked List
 
 Python has no built-in linked list - you define the node.
+
+![](images/linked_list.svg)
 
 1. Creating
 ```python
@@ -255,6 +261,8 @@ s = "".join(parts)
 
 **LIFO** - last in, first out.
 
+![](images/stack.png)
+
 1. Creating
 ```python
 s = []                                  # empty stack
@@ -281,6 +289,8 @@ len(s)                                  # current size
 
 **FIFO** - first in, first out. Never use a list because `list.pop(0)` is O(n), `deque` is **O(1)** at both ends.
 
+![](images/deque.png)
+
 1. Creating
 ```python
 from collections import deque
@@ -298,9 +308,8 @@ q.popleft()                             # remove & return the FRONT - O(1)
 q.extend([1,2,3])                       # add more elements to the back
 q.extendleft([1,2,3])                   # add more elements to the front
 ```
-![](images/deque.png)
 
-3. Peeking & checking
+1. Peeking & checking
 ```python
 q[0]                                    # peek at the front
 q[-1]                                   # peek at the back
@@ -309,7 +318,7 @@ while q: ...                            # drain the queue
 len(q)                                  # current size
 ```
 
-4. Rotating
+1. Rotating
 ```python
 q.rotate(1)                             # move everything right by 1
 q.rotate(-1)                            # move everything left by 1
@@ -341,7 +350,9 @@ grid = [[0] * 10] * 3                   # First, `[0] * 10` creates a first list
 
 ### Hash Map
 
-Average **O(1)** insert, lookup and delete.
+A hash map stores key-value pairs and allows an average of **O(1)** insert, lookup and delete. Keys are **unique** and **immutable**.
+
+![](images/hashmap.png)
 
 1. Creating
 ```python
@@ -369,7 +380,6 @@ d[k] = d.get(k, 0) + 1
 d.setdefault(k, []).append(v)           # value at key k, creates an empty list and stores it in the dictionary at key k if absent
 d.update(other)                         # merge another dictionary into d (d = {'a': 1, 'b': 2}; other = {'b': 20, 'c': 3}; d.update(other) -> {'a': 1, 'b': 20, 'c': 3})
 ```
-![](images/hashmap.png)
 
 3. Removing
 ```python
@@ -409,7 +419,9 @@ c.most_common(2)                        # returns only the top 2 items with the 
 
 ### Hash Set
 
-Average **O(1)** add, lookup and remove.
+Set is a built-in Python data type that stores only unique elements, duplicate values are automatically removed. It is an unordered collection that supports **O(1)** add, lookup and remove.
+
+![](images/set.png)
 
 1. Creating
 ```python
@@ -419,7 +431,7 @@ s = set("hello")                        # {'h', 'e', 'l', 'o'}
 s = {e for e in a if e > 0}             # comprehension
 ```
 
-2. Adding & removing
+1. Adding & removing
 ```python
 s.add(x)                                # add one element, no operation if already exists
 s.update([1, 2, 3])                     # add many elements
@@ -429,7 +441,7 @@ s.pop()                                 # remove & return an ARBITRARY element (
 s.clear()                               # empty the set
 ```
 
-3. Searching
+1. Searching
 ```python
 x in s                                  # O(1)
 x not in s
@@ -438,7 +450,7 @@ min(s), max(s)                          # smallest / largest
 sorted(s)                               # returns a sorted LIST
 ```
 
-4. Set algebra
+1. Set algebra
 ```python
 s1 & s2                                 # intersection - in BOTH
 s1 | s2                                 # union - in EITHER
@@ -449,7 +461,7 @@ s1 >= s2                                # True if s1 is a superset of s2
 s1.isdisjoint(s2)                       # True if they share nothing
 ```
 
-5. Iterating
+1. Iterating
 ```python
 for x in s: ...                         # arbitrary order - never rely on it
 for x in sorted(s): ...                 # sorted order
@@ -459,7 +471,9 @@ for x in sorted(s): ...                 # sorted order
 
 ### Binary Tree
 
-Python has no built-in binary tree - you define the node.
+Data structure where each node has at most two children. Python has no built-in binary tree - you define the node.
+
+![](images/binarry_tree.png)
 
 1. The node
 ```python
@@ -506,6 +520,8 @@ Same as a binary tree, plus one rule that makes it searchable:
 ```
 
 Every operation walks a single root-to-leaf path, so everything is O(h) when balanced, O(n) when degenerate. Python has no built-in BST.
+
+![](images/binary_search_tree.png)
 
 1. Creating
 ```python
@@ -567,6 +583,12 @@ root = delete(root, 50)
     30    70    copy        30    70     duplicate   30    70
         /  \    ------>          / \     ------>            \
       60    80                 60   80                      80
+```
+
+5. Min & max - O(h)
+```python
+while node.left: node = node.left # leftmost node is the smallest value
+while node.right: node = node.right # rightmost node is the biggest value
 ```
 
 ---
