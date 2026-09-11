@@ -699,7 +699,7 @@ def startswith(self, prefix)
     # the path existing is enough
     return self.walk(prefix) is not None
 ```
-s
+
 ## Algorithms
 
 ---
