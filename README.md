@@ -697,7 +697,7 @@ def search(self, word):
     return node is not None and node.is_word
 ```
 ```python
-def startswith(self, prefix)
+def startsWith(self, prefix)
     # the path existing is enough
     return self.walk(prefix) is not None
 ```
