@@ -2,7 +2,7 @@
 
 This repository's goal is to help you pass your coding interviews by providing a comprehensive collection of data structures and algorithms.
 
-## Contents
+## Data Structures
 
 **Basic data structures**
 - [Array](#array)
@@ -28,10 +28,9 @@ This repository's goal is to help you pass your coding interviews by providing a
 
 **Complex Data Structure**
 
-**Algorithms**
+## Algorithms
 - [Two Pointers Technique](#two-pointers-technique)
-
-## Data Structures
+- [Sliding Window](#sliding-window)
 
 ---
 
@@ -825,11 +824,11 @@ rank(find(x))                           # size of x's component
 
 ## Algorithms
 
----
-
 ### Two Pointers Technique
 
 Two indexes walking a sequence, replacing a nested loop. Turns O(n^2) -> O(n), but needs the input **sorted**.
+
+![](images/two_pointers.png)
 
 ```python
 l, r = 0, len(a) - 1                    # start at both ends
@@ -840,4 +839,30 @@ while l < r:                            # stop when they meet
         l += 1
     else:                               # too big -> need a smaller number
         r -= 1
+```
+
+### Sliding Window
+
+A window **[l, r]** over a contiguous run of elements. **r** expands to include, **l** contracts to exclude. The whole scan is O(n).
+
+![](images/sliding_window.png)
+
+1. Fixed size - the window never changes width
+```python
+window = sum(a[:k])                     # build the first window
+best = window
+for r in range(k, len(a)):
+    window += a[r] - a[r - k]           # add the enering, drop the leaving
+    best = max(best, window)
+```
+
+2. Variable size
+```python
+l = 0
+for r in range(len(a)):
+    ...                                 # add a[r] to the window
+    while <window is invalid>:          # shrink from the left until valid again
+        ...                             # remove a[l] from the window
+        l += 1
+    best = max(best, r - l + 1)         # window size is r - l + 1
 ```
