@@ -60,14 +60,14 @@ len(a)                                  # length of the array
 
 3. Adding elements
 ```python
-a.append(4)                             # add to the end
+a.append(4)                             # add to the end - O(1)
 a.extend([5, 6, 7])                     # add multiple elements to the end
 a += [8, 9]                             # add multiple elements to the end
-a.insert(i, 10)                         # insert at index i and shift elements to the right
+a.insert(i, 10)                         # insert at index i and shift elements to the right - O(n)
 a = a + [11, 12]                        # create a new array with added elements
 ```
 
-4. Removing elements
+4. Removing elements - O(n)
 ```python
 a.pop()                                 # remove & return last element
 a.pop(i)                                # remove & return element at index i
@@ -646,6 +646,73 @@ heapq.heappush(h, -x)                   # push the negative
 heapq.heappush(h, (dist, node))         # orders by dist, then by node
 dist, node = heapq.heappop(h)           # unpack when popping
 ```
+
+---
+
+### Graph
+
+A graph is consisted of vertices (nodes) and edges (lines). Two of the most common ways to store a graph are:
+• Adjancecy List Representation 
+• Adjacency Matrix Representation
+
+![](images/adjacency_list.png)
+![](images/adjacency_matrix.png)
+
+1. Adjacency list - the default, use this unless told otherwise
+```python
+from collections import defaultdict
+g = defaultdict(list)
+for u, v in edges:
+    g[u].append(v)
+    g[v].append(u)
+```
+
+2. Adjacency matrix - when the graph is dense
+```python
+m =[[0] * n for _ in range(n)]          # m[u][v] = 1 if the edge exists
+m[u][v] = 1                             # directed 
+m[u][v] = m[v][u] = 1                   # undirected
+```
+
+3. Visiting neighbors
+```python
+for v in g[u]: ...                      # adjacency list
+for v in range(n):                      # adjacency matrix
+    if m[u][v]: ...
+```
+
+4. DFS
+```python
+# Recursive
+seen = set()
+def dfs(u):
+    if u in seen: return                # already visited - stop
+    seen.add(u)
+    for v in g[u]:
+        dfs(v)
+```
+```python
+# Iterative
+stack, seen = [start], {start}
+while stack:
+    u = stack.pop()
+    for v in g[u]:
+        if v not in seen:
+            seen.add(v)
+            stack.ppend(v)
+```
+
+5. BFS
+```python
+q, seen = deque([start]), {start}
+while q:
+    u = q.pop()
+    for v in g[u]:
+        if v not in seen:
+            seen.add(v)
+            q.append(v)
+```
+
 
 ---
 
