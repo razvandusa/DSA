@@ -31,6 +31,8 @@ This repository's goal is to help you pass your coding interviews by providing a
 ## Algorithms
 - [Two Pointers Technique](#two-pointers-technique)
 - [Sliding Window](#sliding-window)
+- [Binary Search](#binary-search)
+- [Prefix Sum](#prefix-sum)
 
 ---
 
