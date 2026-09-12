@@ -875,7 +875,6 @@ for r in range(len(a)):
 
 Great for finding an element in a **sorted** array by continuously chopping the searching area in half reducing the time from O(n) to **O(log(n))**.
 
-1. Exact match
 ```python
 l, r = 0, len(a) - 1
 while l <= r:
@@ -887,4 +886,25 @@ while l <= r:
     else:                               # target is to the LEFT
         r = m - 1
 return -1                               # not found
+```
+
+---
+
+### Prefix Sum
+
+It is used to solve problems involving the sum of elements between two indices.  
+Precomputing cumulative sums once will be **O(n)** and then any range sum is a single subtraction in **O(1)**.  
+Great for questions like "how many subarrays sum to k".
+
+```python
+n = len(a)
+
+# to store the prefix sum
+prefixSum = [0] * n
+
+# initialize the first element
+prefixSum[0] = a[0]
+
+for i in range(1, n):
+    prefixSum[i] = prefixSum[i - 1] + arr[i]
 ```
