@@ -479,7 +479,7 @@ for x in sorted(s): ...                 # sorted order
 
 Data structure where each node has at most two children. Python has no built-in binary tree - you define the node.
 
-![](images/binarry_tree.png)
+![](images/binary_tree.png)
 
 1. The node
 ```python
@@ -875,6 +875,8 @@ for r in range(len(a)):
 
 Great for finding an element in a **sorted** array by continuously chopping the searching area in half reducing the time from O(n) to **O(log(n))**.
 
+![](images/binary_search.png)
+
 ```python
 l, r = 0, len(a) - 1
 while l <= r:
@@ -895,6 +897,8 @@ return -1                               # not found
 It is used to solve problems involving the sum of elements between two indices.  
 Precomputing cumulative sums once will be **O(n)** and then any range sum is a single subtraction in **O(1)**.  
 Great for questions like "how many subarrays sum to k".
+
+![](images/prefix_sum.png)
 
 ```python
 n = len(a)
