@@ -37,6 +37,9 @@ This repository's goal is to help you pass your coding interviews by providing a
 - [Recursion](#recursion)
 - [Backtracking](#backtracking)
 - [Divide & Conquer](#divide--conquer)
+- [DFS](#dfs)
+- [BFS](#bfs)
+- [Topological Sort](#topological-sort)
 
 ---
 
@@ -520,7 +523,7 @@ def count(node):
 
 ---
 
-### Binary Search Tree
+### [Binary Search Tree](https://www.youtube.com/watch?v=mtvbVLK5xDQ)
 
 Same as a binary tree, plus one rule that makes it searchable: 
 ```python
@@ -605,7 +608,7 @@ while node.right: node = node.right # rightmost node is the biggest value
 
 ---
 
-### Heap / Priority Queue
+### [Heap / Priority Queue](https://www.youtube.com/watch?v=t0Cq6tVNRBA&t=74s)
 
 Min-heaps are complete binary trees, implemented using lists for which `heap[k] <= heap[2*k+1]` and `heap[k] <= heap[2*k+2]` for all k for which the compared elements exist. Elements are counted from zero, so the smallest element is always the root, `heap[0]`.
 
@@ -690,7 +693,7 @@ for v in range(n):                      # adjacency matrix
 
 ---
 
-### Trie
+### [Trie](https://www.youtube.com/watch?v=zIjfhVPRZCg)
 
 A trie consists of nodes connected by edges. Each node repesents a character or a part of a string. The root node acts as a starting point and does not store any character.
 
@@ -745,7 +748,7 @@ def startsWith(self, prefix)
 
 ---
 
-### Disjoint Set (Union-Find)
+### [Disjoint Set (Union-Find)](https://www.youtube.com/watch?v=ayW5B2W9hfo)
 
 Two sets are called **disjoint sets** if they don't have any element in common. The disjoint set data structure stores such sets and supports the following operations:
 - Merging two disjoint sets to a single set using **Union** operation
@@ -817,7 +820,7 @@ while l < r:                            # stop when they meet
 
 ---
 
-### Sliding Window
+### [Sliding Window](https://www.youtube.com/watch?v=y2d0VHdvfdc)
 
 A window **[l, r]** over a contiguous run of elements. **r** expands to include, **l** contracts to exclude. The whole scan is O(n).
 
@@ -845,7 +848,7 @@ for r in range(len(a)):
 
 ---
 
-### Binary Search
+### [Binary Search](https://www.youtube.com/watch?v=MFhxShGxHWc)
 
 Great for finding an element in a **sorted** array by continuously chopping the searching area in half reducing the time from O(n) to **O(log(n))**.
 
@@ -866,7 +869,7 @@ return -1                               # not found
 
 ---
 
-### Prefix Sum
+### [Prefix Sum](https://www.youtube.com/watch?v=yuws7YK0Yng)
 
 It is used to solve problems involving the sum of elements between two indices.  
 Precomputing cumulative sums once will be **O(n)** and then any range sum is a single subtraction in **O(1)**.  
@@ -1042,4 +1045,70 @@ while q:
         if v not in seen:
             seen.add(v)
             q.append(v)
+```
+
+---
+
+### [Topological Sort](https://www.youtube.com/watch?v=eL-KzMXSXXI&t=2s)
+
+Can be applied only in a directed acyclic graph (DAG). Topological Sorting is a technique used to arrange vertices of a DAG in a sequence that respects all dependencies. Ensuring that no vertex appears before any of its prerequisites.
+
+![](images/topological_sort.png)
+
+1. DFS-Based Approach
+```python
+def topsort(graph):
+    n = len(graph)
+    visited = [False] * n
+    ordering = [0] * n
+    i = n - 1                              # fill the result from right to left
+
+    def dfs(at, visited_nodes):
+        visited[at] = True
+        for to in graph[at]:
+            if not visited[to]:
+                dfs(to, visited_nodes)
+        visited_nodes.append(at)           # append the node only after its whole subtree is done, meaning that the first "finished" node is the one that has no nowhere else to go to
+
+    for at in range(n):
+        if not visited[at]:
+            visited_nodes = []
+            dfs(at, visited_nodes)
+            for node_id in visited_nodes:
+                ordering[i] = node_id
+                i -= 1
+
+    return ordering
+```
+
+2. BFS-Based Approach (Kahn's Algorithm)
+```python
+from collections import deque
+
+def find_topological_ordering(g):
+    n = len(g)
+
+    # Step 1: count how many incoming edges each node has
+    in_degree = [0] * n
+    for i in range(n):
+        for to in g[i]:
+            in_degree[to] += 1
+
+    # Step 2: the queue always holds the nodes with no dependencies
+    q = deque(i for i in range(n) if in_degree[i] == 0)
+
+    index = 0
+    order = [0] * n
+    while q:
+        at = q.popleft()
+        order[index] = at
+        index += 1
+        for to in g[at]:
+            in_degree[to] -= 1
+            if in_degree[to] == 0:      # now it has no dependencies
+                q.append(to)
+
+    if index != n:
+        return None                     # graph contains a cycle
+    return order
 ```
