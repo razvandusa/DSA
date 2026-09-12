@@ -914,3 +914,80 @@ prefixSum[0] = a[0]
 for i in range(1, n):
     prefixSum[i] = prefixSum[i - 1] + arr[i]
 ```
+
+---
+
+### Monotonic Stack
+
+A special type of stack where elements are kept in either **increasing** or **decreasing** order.  
+To maintain this order when a new element is pushed, it is compared with the top of the stack, if the order is violated, elements are popped until the property is restored, and then the new element is pushed.
+
+![](images/monotonic_stack.png)
+
+```python
+def monotonic_increasing_stack(a):
+    stack = []
+
+    for num in a:
+        while stack and stack[-1] > num: # While the stack is not empty and the top of the stack is greater than the current element
+            stack.pop
+        stack.append(num)
+
+    return stack
+```
+
+---
+
+### Recursion
+
+Every recursive function must have two parts:
+- A **base case** - A condition that stops the recursion
+- A **recursive case** - The function calling itself with a modified argument  
+
+Without a base case, the function would call itself forever, causing a stack overflow error.
+
+![](images/recursive.png)
+
+```python
+def factorial(n):
+    # Base case
+    if n == 0 or n == 1:
+        return 1
+    # Recursive case
+    else:
+        return n * factorial(n - 1)
+```
+
+---
+
+### Backtracking
+
+A recursive algorithm that involves finding a solution incrementally by trying **different options** and **undoing** them if they lead to a **dead end** so it backtracks to the last valid choice made and tries a different path.
+
+How a backtracking algorithm works:
+1. Choose an **initial** solution
+2. Explore all possible extensions of the **current** solution
+3. If an extension leads to a solution, **return** that solution
+4. If an extension does not lead to a solution, **backtrack** to the **previous** solution and try a different extension
+5. Repeat steps 2-4 until all possible solutions have been explored
+
+![](images/backtracking.png)
+
+```
+function backtracking(state):
+    if state is a solution:
+        return state
+    
+    for choice in all possible choices:
+        if choice is valid:
+            make choice
+            result = backtracking(state with choice)
+            if result is not failure:
+                return result
+            undo choice
+    return failure
+```
+
+---
+
+### Divide & Conquer
