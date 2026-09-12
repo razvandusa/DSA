@@ -991,3 +991,37 @@ function backtracking(state):
 ---
 
 ### Divide & Conquer
+
+Is an effective approach for solving problems that can be divided into smaller, easier-to-manage subproblems.
+
+Divide and Conquer typically involves three key steps:
+- Divide: First step is to divide the primary problem into smaller subissues.
+- Conquer: Each subproblem is tackled separately as soon as it is small enough.
+- Merge: To solve the primary problem, the subproblems' answers must be merged in the last stage.
+
+![](images/divide_and_conquer.png)
+
+```python
+# Merge Sort is using Divide and Conquer
+def merge(arr1, arr2):
+    i = 0
+    j = 0
+    result = [] # Array to store the merged stored array
+    while (i < len(arr1) and j < len(arr2)):
+        if arr2[j] > arr1[i]:
+            result.append(arr1[i])
+            i += 1
+        else:
+            result.append(arr2[j])
+            j += 1
+
+    # Push the remaining elements of arr1, if any
+    while (i < len(arr1)):
+        result.append(arr1[i])
+        i += 1
+
+    # Push the remaining elements of arr2, if any
+    while (j < len(arr2)):
+        result.append(arr2[j])
+        j += 1
+```
