@@ -688,38 +688,6 @@ for v in range(n):                      # adjacency matrix
     if m[u][v]: ...
 ```
 
-4. DFS
-```python
-# Recursive
-seen = set()
-def dfs(u):
-    if u in seen: return                # already visited - stop
-    seen.add(u)
-    for v in g[u]:
-        dfs(v)
-```
-```python
-# Iterative
-stack, seen = [start], {start}
-while stack:
-    u = stack.pop()
-    for v in g[u]:
-        if v not in seen:
-            seen.add(v)
-            stack.ppend(v)
-```
-
-5. BFS
-```python
-q, seen = deque([start]), {start}
-while q:
-    u = q.pop()
-    for v in g[u]:
-        if v not in seen:
-            seen.add(v)
-            q.append(v)
-```
-
 ---
 
 ### Trie
@@ -1028,4 +996,50 @@ def merge(arr1, arr2):
     while (j < len(arr2)):
         result.append(arr2[j])
         j += 1
+```
+
+---
+
+### DFS
+
+Used for traversing a graph, selecting some arbitrary node as the root node and explores as far as possible along each branch before backtracking.
+
+![](images/dfs.png)
+
+```python
+# Recursive
+seen = set()
+def dfs(u):
+    if u in seen: return                # already visited - stop
+    seen.add(u)
+    for v in g[u]:
+        dfs(v)
+```
+```python
+# Iterative
+stack, seen = [start], {start}
+while stack:
+    u = stack.pop()
+    for v in g[u]:
+        if v not in seen:
+            seen.add(v)
+            stack.ppend(v)
+```
+
+---
+
+### BFS
+
+Used for traversing a graph, beginning with a node, then first traverses all its adjacent nodes. Once all adjacent are visited, then their adjacent are traversed.
+
+![](images/bfs.png)
+
+```python
+q, seen = deque([start]), {start}
+while q:
+    u = q.pop()
+    for v in g[u]:
+        if v not in seen:
+            seen.add(v)
+            q.append(v)
 ```
