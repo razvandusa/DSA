@@ -655,8 +655,8 @@ dist, node = heapq.heappop(h)           # unpack when popping
 ### Graph
 
 A graph is consisted of vertices (nodes) and edges (lines). Two of the most common ways to store a graph are:
-• Adjancecy List Representation 
-• Adjacency Matrix Representation
+- Adjancecy List Representation 
+- Adjacency Matrix Representation
 
 ![](images/adjacency_list.png)
 ![](images/adjacency_matrix.png)
@@ -776,8 +776,8 @@ def startsWith(self, prefix)
 ### Disjoint Set (Union-Find)
 
 Two sets are called **disjoint sets** if they don't have any element in common. The disjoint set data structure stores such sets and supports the following operations:
-• Merging two disjoint sets to a single set using **Union** operation
-• Finding representative of a disjoint set using **Find** operation
+- Merging two disjoint sets to a single set using **Union** operation
+- Finding representative of a disjoint set using **Find** operation
 
 ```
       2           3            two components: {2,7,5,1,6} and {3,4,0}
