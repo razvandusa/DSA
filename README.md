@@ -841,6 +841,8 @@ while l < r:                            # stop when they meet
         r -= 1
 ```
 
+---
+
 ### Sliding Window
 
 A window **[l, r]** over a contiguous run of elements. **r** expands to include, **l** contracts to exclude. The whole scan is O(n).
@@ -865,4 +867,24 @@ for r in range(len(a)):
         ...                             # remove a[l] from the window
         l += 1
     best = max(best, r - l + 1)         # window size is r - l + 1
+```
+
+---
+
+### Binary Search
+
+Great for finding an element in a **sorted** array by continuously chopping the searching area in half reducing the time from O(n) to **O(log(n))**.
+
+1. Exact match
+```python
+l, r = 0, len(a) - 1
+while l <= r:
+    m = (l + r) // 2
+    if a[m] == target:
+        return m
+    elif a[m] < target:                 # target is to the RIGHT
+        l = m + 1
+    else:                               # target is to the LEFT
+        r = m - 1
+return -1                               # not found
 ```
