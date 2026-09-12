@@ -21,10 +21,10 @@ This repository's goal is to help you pass your coding interviews by providing a
 
 **Graph**
 - [Graph](#graph)
-- [Disjoint Set (Union-Find)](#disjoint-set-union-find)
 
 **Advanced Data Structure**
 - [Trie](#trie)
+- [Disjoint Set (Union-Find)](#disjoint-set-union-find)
 
 **Complex Data Structure**
 
