@@ -33,6 +33,10 @@ This repository's goal is to help you pass your coding interviews by providing a
 - [Sliding Window](#sliding-window)
 - [Binary Search](#binary-search)
 - [Prefix Sum](#prefix-sum)
+- [Monotonic Stack](#monotonic-stack)
+- [Recursion](#recursion)
+- [Backtracking](#backtracking)
+- [Divide & Conquer](#divide--conquer)
 
 ---
 
