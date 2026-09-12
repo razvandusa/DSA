@@ -20,6 +20,8 @@ This repository's goal is to help you pass your coding interviews by providing a
 - [Heap / Priority Queue](#heap--priority-queue)
 
 **Graph**
+- [Graph](#graph)
+- [Disjoint Set (Union-Find)](#disjoint-set-union-find)
 
 **Advanced Data Structure**
 - [Trie](#trie)
@@ -713,7 +715,6 @@ while q:
             q.append(v)
 ```
 
-
 ---
 
 ### Trie
@@ -767,6 +768,59 @@ def search(self, word):
 def startsWith(self, prefix)
     # the path existing is enough
     return self.walk(prefix) is not None
+```
+
+---
+
+### Disjoint Set (Union-Find)
+
+Two sets are called **disjoint sets** if they don't have any element in common. The disjoint set data structure stores such sets and supports the following operations:
+• Merging two disjoint sets to a single set using **Union** operation
+• Finding representative of a disjoint set using **Find** operation
+
+```
+      2           3            two components: {2,7,5,1,6} and {3,4,0}
+    / | \        /
+   7  5  1      4              find(x) climbs to the root
+  /            /               same root == same set
+ 6            0
+```
+
+![](images/disjoint.png)
+
+1. Creating
+```python
+parent = list(range(n))                 # every node starts as its own root
+rank = [1] * n                          # size of the tree at each root
+count = n                               # number of components
+```
+
+2. Find
+```python
+def find(x):
+    while parent[x] != x:
+        parent[x] = parent[parent[x]]   # move x's parent one level up to reduce future searches
+        x = parent[x]
+    return x
+```
+
+3. Union - by size, so trees stay shallow
+```python
+def union(x, y):
+    rx, ry = find(x), find(y)           # rx, ry are root x and root y
+    if rx == ry: return False           # already together
+    if rank[rx] < rank[ry]:             # attach the smaller tree under the bigger one
+        rx, ry = ry, rx
+    parent[ry] = rx
+    rank[rx] += rank[ry]
+    return True                         # the merge happened
+```
+
+4. Queries
+```python
+find(x) == find(y)                      # are x and y in the same group?
+count -= 1                              # call on every union that returns True
+rank(find(x))                           # size of x's component
 ```
 
 ## Algorithms
