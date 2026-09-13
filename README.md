@@ -1231,9 +1231,13 @@ shortest_distances = bellman_ford(graph, source)
 print(shortest_distances)
 ```
 
-### Dynamica Programming
+---
+
+### Dynamic Programming
 
 ![](images/dynamic_programming.png)
+
+---
 
 ### Greedy
 
@@ -1260,7 +1264,7 @@ def minCoins(coins, amount):
     for i in range(n - 1, -1, -1):
         if amount >= coins[i]:
             # Find the maximum number of ith coin we can use
-            cnt = amount // coint[i]
+            cnt = amount // coins[i]
 
             # Add the count to result
             res += cnt
@@ -1279,4 +1283,76 @@ coins = [5, 2, 10, 1]
 amount = 39
 
 print(minCoins(coins, amount))
+```
+
+---
+
+### Bit Manipulation
+Python bitwise operators are used to perform bitwise calculations on integers.
+
+| Operator | Description         | Syntax   |
+|----------|---------------------|----------|
+| `&`      | Bitwise AND         | `x & y`  |
+| `\|`     | Bitwise OR          | `x \| y` |
+| `~`      | Bitwise NOT         | `~x`     |
+| `^`      | Bitwise XOR         | `x ^ y`  |
+| `>>`     | Bitwise right shift | `x >> n` |
+| `<<`     | Bitwise left shift  | `x << n` |
+
+#### Bitwise AND Operator  
+![](images/and.png)
+```python
+a = 6
+b = 4
+print("a & b =", a & b)              # 4
+```
+
+#### Bitwise OR Operator
+![](images/or.png)
+```python
+a = 6
+b = 4
+print("a | b =", a | b)              # 7
+```
+
+#### Bitwise NOT Operator
+![](images/not.png)
+```python
+a = 8
+print("~a =", ~a)                    # 6
+```
+
+#### Bitwise XOR Operator
+0 XOR 0 = 0 (same, so 0)  
+0 XOR 1 = 1 (different, so 1)  
+1 XOR 0 = 1 (different, so 1)  
+1 XOR 1 = 0 (same, so 0) 
+
+![](images/xor.png)
+```python
+a = 6
+b = 4
+print("a ^ b =", a ^ b)              # 3
+```
+
+#### Bitwise Right Shift Operator
+Shifts the bits of the number to the right and fills the vacated bit positions on the left with 0s (or with 1s for negative numbers). Similar effect as of dividing the number with some power of two.
+```python
+a = 10 = 0000 1010 (Binary)
+a >> 1 = 0000 0101 = 5
+```
+```python
+a = -10 = 1111 0110 (Binary)
+a >> 1 = 1111 1011 = -5 
+```
+
+#### Bitwise Left Shift Operator
+Shifts the bits of the number to the left and fills 0 on voids right as a result. Similar effect of multiplying the number with some power of two.
+```python
+a = 5 = 0000 0101 (Binary)
+a << 1 = 0000 1010 = 10
+```
+```python
+b = -10 = 1111 0110 (Binary)
+b << 1 = 1110 1100 = -20
 ```
