@@ -46,8 +46,6 @@ This repository's goal is to help you pass your coding interviews by providing a
 - [Greedy](#greedy)
 - [Bit Manipulation](#bit-manipulation)
 
----
-
 ## Data Structures
 
 ### Array
