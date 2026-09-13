@@ -48,6 +48,8 @@ This repository's goal is to help you pass your coding interviews by providing a
 
 ---
 
+## Data Structures
+
 ### Array
 
 Python does not have a built-in array type like other languages, similar functionality can be achieved using lists. Unlike arrays, lists can store mixed data types.
