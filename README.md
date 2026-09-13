@@ -42,6 +42,9 @@ This repository's goal is to help you pass your coding interviews by providing a
 - [Topological Sort](#topological-sort)
 - [Dijkstra](#dijkstra)
 - [Bellman-Ford](#bellman-ford)
+- [Dynamic Programming](#dynamic-programming)
+- [Greedy](#greedy)
+- [Bit Manipulation](#bit-manipulation)
 
 ---
 
