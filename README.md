@@ -1142,7 +1142,7 @@ How the **Dijkstra** algorithm works:
    If it does, update `dist[v] = dist[u] + weight` and push `(dist[v], v)` into the priority queue.
 6. Continue this process until the priority queue becomes empty. Once done, the `dist[]` array will contain the **shortest distance** from the source to every vertex in the graph.
 
-![](images/dijkstra.png)
+![](images/dijkstra.gif)
 
 ```python
 import heapq
@@ -1229,4 +1229,54 @@ source = 'A'
 
 shortest_distances = bellman_ford(graph, source)
 print(shortest_distances)
+```
+
+### Dynamica Programming
+
+![](images/dynamic_programming.png)
+
+### Greedy
+
+An algorithmic paradigm that builds up a solution piece by piece, always choosing the next piece that offers the most obvious and immediate benefit.
+
+Example:  
+Let's say you have a **set of coin** with values **[1,2,5,10]** and you need to give **minimum number of coin** to someone change for **39**.
+
+The **greedy algorithm** for making change would work as follows:
+
+**Step-1**: Start with the **largest coin** value that is **less than or equal** to the amount to be changed. In this case, the largest coin less than or equal to **39** is 10.
+**Step- 2**: Subtract the largest coin value from the amount to be changed, and **add** the coin to the solution. In this case, **subtracting 10 from 39 gives 29**, and we add **one 10-coin** to the solution.
+Repeat **steps 1 and 2** until the amount to be changed becomes 0.
+
+![](images/greedy.gif)
+
+```python
+def minCoins(coins, amount):
+    n = len(coins)
+    coins.sort()
+    res = 0
+
+    # Start from the coin with highest denomination
+    for i in range(n - 1, -1, -1):
+        if amount >= coins[i]:
+            # Find the maximum number of ith coin we can use
+            cnt = amount // coint[i]
+
+            # Add the count to result
+            res += cnt
+
+            # Subtract the corresponding amount from the total amount
+            amount -= cnt * coins[i]
+
+        # Break if there is no amount left
+        if amount == 0:
+            break
+    return res
+```
+```python
+# Example
+coins = [5, 2, 10, 1]
+amount = 39
+
+print(minCoins(coins, amount))
 ```
