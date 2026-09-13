@@ -40,6 +40,8 @@ This repository's goal is to help you pass your coding interviews by providing a
 - [DFS](#dfs)
 - [BFS](#bfs)
 - [Topological Sort](#topological-sort)
+- [Dijkstra](#dijkstra)
+- [Bellman-Ford](#bellman-ford)
 
 ---
 
@@ -324,7 +326,7 @@ q.extend([1,2,3])                       # add more elements to the back
 q.extendleft([1,2,3])                   # add more elements to the front
 ```
 
-1. Peeking & checking
+3. Peeking & checking
 ```python
 q[0]                                    # peek at the front
 q[-1]                                   # peek at the back
@@ -333,7 +335,7 @@ while q: ...                            # drain the queue
 len(q)                                  # current size
 ```
 
-1. Rotating
+4. Rotating
 ```python
 q.rotate(1)                             # move everything right by 1
 q.rotate(-1)                            # move everything left by 1
@@ -446,7 +448,7 @@ s = set("hello")                        # {'h', 'e', 'l', 'o'}
 s = {e for e in a if e > 0}             # comprehension
 ```
 
-1. Adding & removing
+2. Adding & removing
 ```python
 s.add(x)                                # add one element, no operation if already exists
 s.update([1, 2, 3])                     # add many elements
@@ -456,7 +458,7 @@ s.pop()                                 # remove & return an ARBITRARY element (
 s.clear()                               # empty the set
 ```
 
-1. Searching
+3. Searching
 ```python
 x in s                                  # O(1)
 x not in s
@@ -465,7 +467,7 @@ min(s), max(s)                          # smallest / largest
 sorted(s)                               # returns a sorted LIST
 ```
 
-1. Set algebra
+4. Set algebra
 ```python
 s1 & s2                                 # intersection - in BOTH
 s1 | s2                                 # union - in EITHER
@@ -476,7 +478,7 @@ s1 >= s2                                # True if s1 is a superset of s2
 s1.isdisjoint(s2)                       # True if they share nothing
 ```
 
-1. Iterating
+5. Iterating
 ```python
 for x in s: ...                         # arbitrary order - never rely on it
 for x in sorted(s): ...                 # sorted order
@@ -565,7 +567,7 @@ def insert(node, val):
         node.left = insert(node.left, val)
     else:
         node.right = insert(node.right, val)
-    return None                         # not found
+    return node                         # return the (unchanged) root of this subtree
 ```
 
 4. Delete - three cases
@@ -661,8 +663,8 @@ dist, node = heapq.heappop(h)           # unpack when popping
 
 ### Graph
 
-A graph is consisted of vertices (nodes) and edges (lines). Two of the most common ways to store a graph are:
-- Adjancecy List Representation 
+A graph consists of vertices (nodes) and edges (lines). Two of the most common ways to store a graph are:
+- Adjacency List Representation 
 - Adjacency Matrix Representation
 
 ![](images/adjacency_list.png)
@@ -695,7 +697,7 @@ for v in range(n):                      # adjacency matrix
 
 ### [Trie](https://www.youtube.com/watch?v=zIjfhVPRZCg)
 
-A trie consists of nodes connected by edges. Each node repesents a character or a part of a string. The root node acts as a starting point and does not store any character.
+A trie consists of nodes connected by edges. Each node represents a character or a part of a string. The root node acts as a starting point and does not store any character.
 
 ![](images/trie.png)
 
@@ -741,7 +743,7 @@ def search(self, word):
     return node is not None and node.is_word
 ```
 ```python
-def startsWith(self, prefix)
+def startsWith(self, prefix):
     # the path existing is enough
     return self.walk(prefix) is not None
 ```
@@ -796,7 +798,7 @@ def union(x, y):
 ```python
 find(x) == find(y)                      # are x and y in the same group?
 count -= 1                              # call on every union that returns True
-rank(find(x))                           # size of x's component
+rank[find(x)]                           # size of x's component
 ```
 
 ## Algorithms
@@ -831,7 +833,7 @@ A window **[l, r]** over a contiguous run of elements. **r** expands to include,
 window = sum(a[:k])                     # build the first window
 best = window
 for r in range(k, len(a)):
-    window += a[r] - a[r - k]           # add the enering, drop the leaving
+    window += a[r] - a[r - k]           # add the entering, drop the leaving
     best = max(best, window)
 ```
 
@@ -887,7 +889,7 @@ prefixSum = [0] * n
 prefixSum[0] = a[0]
 
 for i in range(1, n):
-    prefixSum[i] = prefixSum[i - 1] + arr[i]
+    prefixSum[i] = prefixSum[i - 1] + a[i]
 ```
 
 ---
@@ -905,7 +907,7 @@ def monotonic_increasing_stack(a):
 
     for num in a:
         while stack and stack[-1] > num: # While the stack is not empty and the top of the stack is greater than the current element
-            stack.pop
+            stack.pop()
         stack.append(num)
 
     return stack
@@ -967,10 +969,10 @@ function backtracking(state):
 
 ### Divide & Conquer
 
-Is an effective approach for solving problems that can be divided into smaller, easier-to-manage subproblems.
+An effective approach for solving problems that can be divided into smaller, easier-to-manage subproblems.
 
 Divide and Conquer typically involves three key steps:
-- Divide: First step is to divide the primary problem into smaller subissues.
+- Divide: First step is to divide the primary problem into smaller subproblems.
 - Conquer: Each subproblem is tackled separately as soon as it is small enough.
 - Merge: To solve the primary problem, the subproblems' answers must be merged in the last stage.
 
@@ -999,6 +1001,8 @@ def merge(arr1, arr2):
     while (j < len(arr2)):
         result.append(arr2[j])
         j += 1
+
+    return result
 ```
 
 ---
@@ -1026,7 +1030,7 @@ while stack:
     for v in g[u]:
         if v not in seen:
             seen.add(v)
-            stack.ppend(v)
+            stack.append(v)
 ```
 
 ---
@@ -1040,7 +1044,7 @@ Used for traversing a graph, beginning with a node, then first traverses all its
 ```python
 q, seen = deque([start]), {start}
 while q:
-    u = q.pop()
+    u = q.popleft()
     for v in g[u]:
         if v not in seen:
             seen.add(v)
@@ -1068,7 +1072,7 @@ def topsort(graph):
         for to in graph[at]:
             if not visited[to]:
                 dfs(to, visited_nodes)
-        visited_nodes.append(at)           # append the node only after its whole subtree is done, meaning that the first "finished" node is the one that has no nowhere else to go to
+        visited_nodes.append(at)           # append the node only after its whole subtree is done, meaning that the first "finished" node is the one that has nowhere else to go
 
     for at in range(n):
         if not visited[at]:
@@ -1108,7 +1112,7 @@ def find_topological_ordering(g):
             if in_degree[to] == 0:      # now it has no dependencies
                 q.append(to)
 
-    if index != n:
+    if index != n:ok
         return None                     # graph contains a cycle
     return order
 ```
@@ -1117,11 +1121,33 @@ def find_topological_ordering(g):
 
 ### [Dijkstra](https://www.youtube.com/watch?v=EFg3u_E6eHU)
 
-Great for finding the shortest path in a graph that does not have any negative weights.
+Great for finding the **shortest path** in a graph that does not have any negative weights.  
+Time complexity: **O((V + E) log V)**.
+
+How the **Dijkstra** algorithm works:
+1. Set `dist[source] = 0` and every other node to `∞`.
+2. Push the pair `(0, source)` into the **priority queue** (min-heap).
+3. While the priority queue is not empty, pop the pair `(d, u)` with the **smallest** distance.
+4. Check if the popped distance is greater than what has been already recorded in the distance array, if so, then it means that the vertex has already been processed with a smaller distance, so skip it and continue to the next iteration.
+5. For each neighbor `v` of `u`, check if the path through `u` gives a smaller distance than the current `dist[v]`.  
+    Example for understanding the case above:
+    ```
+                    dist = [0, ∞, ∞]    heap: (0, 0)
+                    pop(0, 0)
+    0 --10--> 1     dist = [0, 10, ∞]   heap: (10, 1)
+    0 ---1--> 2     dist = [0, 10, 1]   heap: (1, 2) (10, 1)
+                    pop(1, 2)
+    2 ---2--> 1     dist = [0, 3, 1]    heap: (3, 1) (10, 1) ← will be skipped
+    ```
+   If it does, update `dist[v] = dist[u] + weight` and push `(dist[v], v)` into the priority queue.
+6. Continue this process until the priority queue becomes empty. Once done, the `dist[]` array will contain the **shortest distance** from the source to every vertex in the graph.
 
 ![](images/dijkstra.png)
 
 ```python
+import heapq
+import sys
+
 def dijkstra(adj, src):
     V = len(adj)
 
@@ -1132,7 +1158,7 @@ def dijkstra(adj, src):
 
     # Distance from source to itself is 0
     dist[src] = 0
-    heapq.heapqpush(pq, (0, src))
+    heapq.heappush(pq, (0, src))
 
     # Process the queue until all reachable vertices are finalized
     while pq:
@@ -1151,4 +1177,56 @@ def dijkstra(adj, src):
     
     # Return the final shortest distances from the source
     return dist
+```
+
+---
+
+### [Bellman-Ford](https://www.youtube.com/watch?v=obWXjtg0L64)
+
+Great for finding the **shortest path** in a graph that can have **negative** weights.  
+Time complexity: **O(V · E)**.
+
+How the **Bellman-Ford** algorithm works:
+1. `dist[source] = 0`, all other nodes `∞`.
+2. Repeat `V-1` times: look at each node one by one and examine the outgoing edges.  
+   If reaching a neighbor through the current node is cheaper than its recorded distance, we update that distance. This is called **relaxing** the edge.
+3. The algorithm takes at most `V-1` iterations, we can make it more efficient by stopping it sooner if nothing improves during an iteration.  
+   After `V-1` iterations if any edge can still be relaxed, there is a **negative cycle**.
+
+![](images/bellman_ford.png)
+
+```python
+def bellman_ford(graph, src):
+    # Step 1: Initialize distances
+    distances = {vertex: float('inf') for vertex in graph}
+    distances[src] = 0
+
+    # Step 2: Relax edges |V| - 1 times
+    for _ in range(len(graph) - 1):
+        for u in graph:
+            for v, weight in graph[u].items():
+                if distances[u] != float('inf') and distances[u] + weight < distances[v]:
+                    distances[v] = distances[u] + weight
+
+    # Step 3: Check for negative weight cycles
+    for u in graph:
+        for v, weight in graph[u].items():
+            if distances[u] != float('inf') and distances[u] + weight < distances[v]:
+                raise ValueError("Graph contains negative weight cycle")
+
+    return distances
+```
+```python
+# Example
+graph = {
+    'A': {'B': -1, 'C': 4},
+    'B': {'C': 3, 'D': 2, 'E': 2},
+    'C': {},
+    'D': {'B': 1, 'C': 5},
+    'E': {'D': -3}
+}
+source = 'A'
+
+shortest_distances = bellman_ford(graph, source)
+print(shortest_distances)
 ```
