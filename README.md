@@ -29,21 +29,38 @@ This repository's goal is to help you pass your coding interviews by providing a
 **Complex Data Structure**
 
 ## Algorithms
+
+**Array & string techniques**
 - [Two Pointers Technique](#two-pointers-technique)
 - [Sliding Window](#sliding-window)
-- [Binary Search](#binary-search)
 - [Prefix Sum](#prefix-sum)
+- [Binary Search](#binary-search)
 - [Monotonic Stack](#monotonic-stack)
+
+**Linked list techniques**
+- [Fast & Slow Pointers](#fast--slow-pointers)
+- [Reverse Linked List](#reverse-linked-list)
+
+**Heap techniques**
+- [Top K](#top-k)
+
+**Recursive techniques**
 - [Recursion](#recursion)
 - [Backtracking](#backtracking)
 - [Divide & Conquer](#divide--conquer)
+
+**Graph algorithms**
 - [DFS](#dfs)
 - [BFS](#bfs)
 - [Topological Sort](#topological-sort)
 - [Dijkstra](#dijkstra)
 - [Bellman-Ford](#bellman-ford)
-- [Dynamic Programming](#dynamic-programming)
+
+**Optimization**
 - [Greedy](#greedy)
+- [Dynamic Programming](#dynamic-programming)
+
+**Bit manipulation**
 - [Bit Manipulation](#bit-manipulation)
 
 ## Data Structures
@@ -853,27 +870,6 @@ for r in range(len(a)):
 
 ---
 
-### [Binary Search](https://www.youtube.com/watch?v=MFhxShGxHWc)
-
-Great for finding an element in a **sorted** array by continuously chopping the searching area in half reducing the time from O(n) to **O(log(n))**.
-
-![](images/binary_search.png)
-
-```python
-l, r = 0, len(a) - 1
-while l <= r:
-    m = (l + r) // 2
-    if a[m] == target:
-        return m
-    elif a[m] < target:                 # target is to the RIGHT
-        l = m + 1
-    else:                               # target is to the LEFT
-        r = m - 1
-return -1                               # not found
-```
-
----
-
 ### [Prefix Sum](https://www.youtube.com/watch?v=yuws7YK0Yng)
 
 It is used to solve problems involving the sum of elements between two indices.  
@@ -897,6 +893,27 @@ for i in range(1, n):
 
 ---
 
+### [Binary Search](https://www.youtube.com/watch?v=MFhxShGxHWc)
+
+Great for finding an element in a **sorted** array by continuously chopping the searching area in half reducing the time from O(n) to **O(log(n))**.
+
+![](images/binary_search.png)
+
+```python
+l, r = 0, len(a) - 1
+while l <= r:
+    m = (l + r) // 2
+    if a[m] == target:
+        return m
+    elif a[m] < target:                 # target is to the RIGHT
+        l = m + 1
+    else:                               # target is to the LEFT
+        r = m - 1
+return -1                               # not found
+```
+
+---
+
 ### Monotonic Stack
 
 A special type of stack where elements are kept in either **increasing** or **decreasing** order.  
@@ -914,6 +931,99 @@ def monotonic_increasing_stack(a):
         stack.append(num)
 
     return stack
+```
+
+---
+
+### [Fast & Slow Pointers](https://www.youtube.com/watch?v=b139yf7Ik-E)
+
+The two-pointer technique is a common technique used in a linked list problems to solve a variety of problems like **finding cycles** in a linked list or **finding middle node** of a linked list.
+
+To detect a cycle in a linked list, we use Floyd's Cycle finding algorithm. If there's no cycle, the fast pointer catches the end pf the list. If there is one, both pointers eventually enter it, and the fast pointer catches up exactly one node per step - they will eventually land on the same node.
+
+![](images/detecting_cycle.jpeg)
+
+```python
+def hasCycle(head):
+    slow = head
+    fast = head
+    while slow != None and fast.next != None:
+        slow = slow.next
+        fast = fast.next.next
+
+        if slow == fast:
+            return True             # Cycle detected
+    
+    return False                    # No cycle
+```
+
+---
+
+### [Reverse Linked List](https://www.youtube.com/watch?v=G0_I-ZF0S38)
+
+The idea is to reverse the linked list by changing the direction of links using three pointers: prev, curr, and next. At eaech step, point the current node to its previous node and then move all three pointers forward until the list is fully reversed.
+
+![](images/reverse_linked_list.gif)
+
+```python
+def reverseList(head):
+    curr = head
+    prev = None
+
+    # traverse all the nodes of Linked List
+    while curr is not None:
+        # store next
+        nextNode = curr.next
+
+        # reverse current node's next pointer
+        curr.next = prev
+
+        # move pointers one position ahead
+        prev = curr
+        curr = nextNode
+
+    return prev
+```
+
+---
+
+### Top K
+
+Top K problems ask for the k best elements under some ranking, such as largest, smallest, or most frequent. A classic example is returning the top **k** elements which have the **highest frequency** in the array.
+
+```python
+import heapq
+
+def topK(arr, k):
+    # Dictionary to store frequency of each element
+    mp = {}
+    for val in arr:
+        mp[val] = mp.get(val, 0) + 1
+
+    # Min-heap to keep track of top k frequent elements
+    # Each element in heap: [frequency, element]
+    pq = []
+    
+    for key, freq in mp.items():
+        # Push the current element and its frequency into heap
+        heapq.heappush(pq, [freq, key])
+
+        # If heap size exceeds k, remove the element with smallest frequency
+        if len(pq) > k:
+            heapq.heappop(pq)
+    
+    res = []
+
+    # Extract elements from heap in descending frequency order
+    temp = [0] * len(pq)
+    index = len(pq) - 1
+    while pq:
+        temp[index] = heapq.heappop(pq)[1]
+        index -= 1
+    for val in temp:
+        res.append(val)
+
+    return res
 ```
 
 ---
@@ -1236,14 +1346,6 @@ print(shortest_distances)
 
 ---
 
-### Dynamic Programming
-
-
-
-![](images/dynamic_programming.png)
-
----
-
 ### Greedy
 
 An algorithmic paradigm that builds up a solution piece by piece, always choosing the next piece that offers the most obvious and immediate benefit.
@@ -1289,6 +1391,15 @@ amount = 39
 
 print(minCoins(coins, amount))
 ```
+
+---
+
+### Dynamic Programming
+
+Dynamic Programming is an algorithmic technique that it is mainly an **optimization** over plain recursion. The idea is to simply store the results of subproblems so that we do not have to re-compute them when needed later. One popular problem solved using Dynamic Programming is **Fibonacci Numbers**.
+
+![](images/dynamic_programming_recusion.png)
+![](images/dynamic_programming.png)
 
 ---
 
@@ -1360,93 +1471,4 @@ a << 1 = 0000 1010 = 10
 ```python
 b = -10 = 1111 0110 (Binary)
 b << 1 = 1110 1100 = -20
-```
-
----
-
-### Top K
-
-Top K problems ask for the k best elements under some ranking, such as largest, smallest, or most frequent. A classic example is returning the top **k** elements which have the **highest frequency** in the array.
-
-```python
-import heapq
-
-def topK(arr, k):
-    # Dictionary to store frequency of each element
-    mp = {}
-    for val in arr:
-        mp[val] = mp.get(val, 0) + 1
-
-    # Min-heap to keep track of top k frequent elements
-    # Each element in heap: [frequency, element]
-    pq = []
-    
-    for key, freq in mp.items():
-        # Push the current element and its frequency into heap
-        heapq.heappush(pq, [freq, key])
-
-        # If heap size exceeds k, remove the element with smallest frequency
-        if len(pq) > k:
-            heapq.heappop(pq)
-    
-    res = []
-
-    # Extract elements from heap in descending frequency order
-    temp = [0] * len(pq)
-    index = len(pq) - 1
-    while pq:
-        temp[index] = heapq.heappop(pq)[1]
-        index -= 1
-    for val in temp:
-        res.append(val)
-
-    return res
-```
-
-### [Fast & Slow Pointers](https://www.youtube.com/watch?v=b139yf7Ik-E)
-
-The two-pointer technique is a common technique used in a linked list problems to solve a variety of problems like **finding cycles** in a linked list or **finding middle node** of a linked list.
-
-To detect a cycle in a linked list, we use Floyd's Cycle finding algorithm. If there's no cycle, the fast pointer catches the end pf the list. If there is one, both pointers eventually enter it, and the fast pointer catches up exactly one node per step - they will eventually land on the same node.
-
-![](images/detecting_cycle.jpeg)
-
-```python
-def hasCycle(head):
-    slow = head
-    fast = head
-    while slow != None and fast != None:
-        slow = slow.next
-        fast = fast.next.next
-
-        if slow == fast:
-            return True             # Cycle detected
-    
-    return False                    # No cycle
-```
-
-### [Reverse Linked List](https://www.youtube.com/watch?v=G0_I-ZF0S38)
-
-The idea is to reverse the linked list by changing the direction of links using three pointers: prev, curr, and next. At eaech step, point the current node to its previous node and then move all three pointers forward until the list is fully reversed.
-
-![](images/reverse_linked_list.gif)
-
-```python
-def reverseList(head):
-    curr = head
-    prev = None
-
-    # traverse all the nodes of Linked List
-    while curr is not None:
-        # store next
-        nextNode = curr.next
-
-        # reverse current node's next pointer
-        curr.next = prev
-
-        # move pointers one position ahead
-        prev = curr
-        curr = nextNode
-
-    return prev
 ```
