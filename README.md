@@ -1366,7 +1366,7 @@ b << 1 = 1110 1100 = -20
 
 ### Top K
 
-An example for Top K algorithms would be to find the top **k** elements which have the **highest frequency** in the array.
+Top K problems ask for the k best elements under some ranking, such as largest, smallest, or most frequent. A classic example is returning the top **k** elements which have the **highest frequency** in the array.
 
 ```python
 import heapq
