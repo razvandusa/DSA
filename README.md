@@ -1375,7 +1375,7 @@ def topK(arr, k):
     # Dictionary to store frequency of each element
     mp = {}
     for val in arr:
-        mp[val] = mp.get(0, val) + 1
+        mp[val] = mp.get(val, 0) + 1
 
     # Min-heap to keep track of top k frequent elements
     # Each element in heap: [frequency, element]
@@ -1401,4 +1401,52 @@ def topK(arr, k):
         res.append(val)
 
     return res
+```
+
+### [Fast & Slow Pointers](https://www.youtube.com/watch?v=b139yf7Ik-E)
+
+The two-pointer technique is a common technique used in a linked list problems to solve a variety of problems like **finding cycles** in a linked list or **finding middle node** of a linked list.
+
+To detect a cycle in a linked list, we use Floyd's Cycle finding algorithm. If there's no cycle, the fast pointer catches the end pf the list. If there is one, both pointers eventually enter it, and the fast pointer catches up exactly one node per step - they will eventually land on the same node.
+
+![](images/detecting_cycle.jpeg)
+
+```python
+def hasCycle(head):
+    slow = head
+    fast = head
+    while slow != None and fast != None:
+        slow = slow.next
+        fast = fast.next.next
+
+        if slow == fast:
+            return True             # Cycle detected
+    
+    return False                    # No cycle
+```
+
+### [Reverse Linked List](https://www.youtube.com/watch?v=G0_I-ZF0S38)
+
+The idea is to reverse the linked list by changing the direction of links using three pointers: prev, curr, and next. At eaech step, point the current node to its previous node and then move all three pointers forward until the list is fully reversed.
+
+![](images/reverse_linked_list.gif)
+
+```python
+def reverseList(head):
+    curr = head
+    prev = None
+
+    # traverse all the nodes of Linked List
+    while curr is not None:
+        # store next
+        nextNode = curr.next
+
+        # reverse current node's next pointer
+        curr.next = prev
+
+        # move pointers one position ahead
+        prev = curr
+        curr = nextNode
+
+    return prev
 ```
